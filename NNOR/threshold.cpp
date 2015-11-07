@@ -2,7 +2,7 @@
 
 #include "opencv2/imgproc.hpp"
 
-cv::Mat nnor::threshold(cv::Mat src, cv::ThresholdTypes thresholdType, cv::AdaptiveThresholdTypes adaptiveThresholdType,	int blockSize, double c)
+cv::Mat nnor::threshold(cv::Mat src, cv::ThresholdTypes thresholdType, cv::AdaptiveThresholdTypes adaptiveThresholdType, int blockSize, double c)
 {
 	cv::Mat binary;
 

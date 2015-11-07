@@ -3,20 +3,20 @@
 #include <opencv2/imgproc.hpp>
 
 
-int nnor::getProjectionSize(cv::Mat projection, int projectionType)
+int nnor::getSize(cv::Mat projection, int projectionType)
 {
-	if (projectionType == PROJECTION_VERTICAL)
+	if (projectionType == VERTICAL)
 		return projection.rows;
-	if (projectionType == PROJECTION_HORIZONTAL)
+	if (projectionType == HORIZONTAL)
 		return projection.cols;
 	return 0;
 }
 
-int nnor::getProjectionDimension(cv::Mat projection, int projectionType)
+int nnor::getDimension(cv::Mat projection, int projectionType)
 {
-	if (projectionType == PROJECTION_VERTICAL)
+	if (projectionType == VERTICAL)
 		return projection.cols;
-	if (projectionType == PROJECTION_HORIZONTAL)
+	if (projectionType == HORIZONTAL)
 		return projection.rows;
 	return 0;
 }
@@ -28,7 +28,7 @@ cv::Mat nnor::projection(cv::Mat src, int projectionType)
 	reduce(src, projection, projectionType, CV_REDUCE_SUM, CV_32SC1);
 	projection = projection / 255;
 
-//	int histBinsCount = getProjectionSize(projection, projectionType);
+//	int histBinsCount = getSize(projection, projectionType);
 //	int histogramMaxValue = 0;
 //	for (int i = 0; i < histBinsCount; i++)
 //	{
@@ -37,7 +37,7 @@ cv::Mat nnor::projection(cv::Mat src, int projectionType)
 //	}
 //	projection = histogramMaxValue - projection;
 
-	projection = getProjectionDimension(src, projectionType) - projection;
+	projection = getDimension(src, projectionType) - projection;
 
 	return projection;
 }
@@ -47,18 +47,18 @@ cv::Mat nnor::projectionHistogram(cv::Mat src, int projectionType)
 {
 	cv::Mat projection = nnor::projection(src, projectionType);
 
-	int histBinsCount = getProjectionSize(projection, projectionType);
+	int histBinsCount = getSize(projection, projectionType);
 
 	cv::Mat projectionHistogram(src.size(), src.type());
 
-	if (projectionType == PROJECTION_VERTICAL)
+	if (projectionType == VERTICAL)
 	{
 		for (int i = 0; i < histBinsCount; i++)
 		{
 			line(projectionHistogram, cv::Point(0, i), cv::Point(projection.at<int>(i), i), 0);
 		}
 	}
-	if (projectionType == PROJECTION_HORIZONTAL)
+	if (projectionType == HORIZONTAL)
 	{
 		for (int i = 0; i < histBinsCount; i++)
 		{
@@ -72,7 +72,7 @@ cv::Mat nnor::projectionHistogram(cv::Mat src, int projectionType)
 cv::Mat nnor::thresholdedProjection(cv::Mat src, int projectionType, int threshold)
 {
 	cv::Mat projection = nnor::projection(src, projectionType);
-	int histBinsCount = getProjectionSize(projection, projectionType);
+	int histBinsCount = getSize(projection, projectionType);
 	for (int i = 0; i < projection.rows; i++)
 	{
 		if (projection.at<int>(i) < threshold)
@@ -88,16 +88,16 @@ cv::Mat nnor::thresholdedProjectionHistogram(cv::Mat src, int projectionType, in
 	cv::Mat thresholdedProjection = nnor::thresholdedProjection(src, projectionType, threshold);
 	cv::Mat projectionHistogram(src.size(), src.type());
 
-	int histBinsCount = getProjectionSize(thresholdedProjection, projectionType);
+	int histBinsCount = getSize(thresholdedProjection, projectionType);
 
-	if (projectionType == PROJECTION_VERTICAL)
+	if (projectionType == VERTICAL)
 	{
 		for (int i = 0; i < histBinsCount; i++)
 		{
 			line(projectionHistogram, cv::Point(0, i), cv::Point(thresholdedProjection.at<int>(i), i), 0);
 		}
 	}
-	if (projectionType == PROJECTION_HORIZONTAL)
+	if (projectionType == HORIZONTAL)
 	{
 		for (int i = 0; i < histBinsCount; i++)
 		{
