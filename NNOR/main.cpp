@@ -2,12 +2,7 @@
 #include <string>
 #include <vector>
 
-#include "deskew.h"
-#include "threshold.h"
-#include "projection.h"
-#include "blur.h"
-#include "roi.h"
-#include "segmentation.h"
+#include "preprocess.h"
 
 std::string inputFile = "D:/for-work/coursework/test/lorem ipsum/simple.png";
 //std::string inputFile = "D:/for-work/coursework/test/Scan_20151101 (4).png";

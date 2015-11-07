@@ -38,22 +38,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="blur.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="deskew.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="projection.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="roi.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="threshold.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="segmentation.h">
+    <ClInclude Include="preprocess.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

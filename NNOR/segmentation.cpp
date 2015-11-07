@@ -1,8 +1,7 @@
-﻿#include "segmentation.h"
+﻿#include "preprocess.h"
 
 #include <vector>
 #include <opencv2/core.hpp>
-#include "projection.h"
 #include <opencv2/imgproc.hpp>
 
 //The idea is that one can separate lines, words and characters using one algorythm.

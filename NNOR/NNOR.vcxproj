@@ -129,12 +129,7 @@
     <ClCompile Include="threshold.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="blur.h" />
-    <ClInclude Include="deskew.h" />
-    <ClInclude Include="projection.h" />
-    <ClInclude Include="roi.h" />
-    <ClInclude Include="segmentation.h" />
-    <ClInclude Include="threshold.h" />
+    <ClInclude Include="preprocess.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
