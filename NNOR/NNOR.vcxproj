@@ -126,9 +126,7 @@
     <ClCompile Include="projection.cpp" />
     <ClCompile Include="roi.cpp" />
     <ClCompile Include="segmentation.cpp" />
-    <ClCompile Include="tan_triggs.cpp" />
     <ClCompile Include="threshold.cpp" />
-    <ClCompile Include="watershed.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="blur.h" />
@@ -136,9 +134,7 @@
     <ClInclude Include="projection.h" />
     <ClInclude Include="roi.h" />
     <ClInclude Include="segmentation.h" />
-    <ClInclude Include="tan_triggs.h" />
     <ClInclude Include="threshold.h" />
-    <ClInclude Include="watershed.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

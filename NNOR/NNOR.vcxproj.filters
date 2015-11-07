@@ -30,13 +30,7 @@
     <ClCompile Include="roi.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="tan_triggs.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="threshold.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="watershed.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="segmentation.cpp">
@@ -56,13 +50,7 @@
     <ClInclude Include="roi.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="tan_triggs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="threshold.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="watershed.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="segmentation.h">
