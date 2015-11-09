@@ -2,7 +2,7 @@
 
 #include <opencv2/imgproc.hpp>
 
-cv::Mat nnor::blur(cv::Mat src, FilterType filterType, cv::Size ksize)
+cv::Mat nnor::blur(cv::Mat src, BlurFilterType filterType, cv::Size ksize)
 {
 	cv::Mat image;
 

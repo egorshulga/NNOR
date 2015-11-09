@@ -53,30 +53,3 @@ std::vector<cv::Mat> nnor::segmentation(cv::Mat src, int separationType , int th
 	return objects;
 }
 
-
-cv::Mat nnor::autoCrop(cv::Mat src, int threshold)
-{
-	cv::Mat verticalProjection = projection(src, VERTICAL);
-	cv::Mat horizontalProjection = projection(src, HORIZONTAL);
-
-	int x0, y0, x1, y1;
-	for (x0 = 0; x0 < src.cols; x0++)
-		if (horizontalProjection.at<int>(x0) > threshold)
-			break;
-	for (y0 = 0; y0 < src.rows; y0++)
-		if (verticalProjection.at<int>(y0) > threshold)
-			break;
-	for (x1 = src.cols - 1; x1 >= 0; x1--)
-		if (horizontalProjection.at<int>(x1) > threshold)
-			break;
-	for (y1 = src.rows - 1; y1 >= 0; y1--)
-		if (verticalProjection.at<int>(y1) > threshold)
-			break;
-
-	if ((x1 - x0 <= 0) || (y1 - y0 <= 0))
-		return cv::Mat();
-
-	cv::Mat result = src(cv::Rect(x0, y0, x1 - x0 + 1, y1 - y0 + 1));
-	return result;
-}
-

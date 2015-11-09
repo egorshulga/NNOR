@@ -121,6 +121,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="blur.cpp" />
+    <ClCompile Include="clipping.cpp" />
     <ClCompile Include="deskew.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="projection.cpp" />

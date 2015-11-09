@@ -1,4 +1,4 @@
-#include "opencv2/highgui/highgui.hpp"
+#include "opencv2/highgui.hpp"
 #include <string>
 #include <vector>
 
@@ -46,40 +46,6 @@ int main(int argc, char** argv)
 		chars.push_back(charactersByLine);
 	}
 
-	int nnRows = 0;
-	int nnCols = 0;
-	for (int i = 0; i < chars.size(); i++)
-	{
-		for (int j = 0; j < chars[i].size(); j++)
-		{
-			for (int k = 0; k < chars[i][j].size(); k++)
-			{
-				chars[i][j][k] = nnor::autoCrop(chars[i][j][k]);
-				if (chars[i][j][k].rows > nnRows)
-					nnRows = chars[i][j][k].rows;
-				if (chars[i][j][k].cols > nnCols)
-					nnCols = chars[i][j][k].cols;
-			}
-		}
-	}
-
-	for (int i = 0; i < chars.size(); i++)
-	{
-		for (int j = 0; j < chars[i].size(); j++)
-		{
-			for (int k = 0; k < chars[i][j].size(); k++)
-			{
-				cv::Mat character;
-				chars[i][j][k].copyTo(character);
-				int left = (nnCols - character.cols) / 2;
-				int right = nnCols - left - character.cols;
-				int top = (nnRows - character.rows) / 2;
-				int bottom = nnRows - top - character.rows;
-				copyMakeBorder(character, character, top, bottom, left, right, cv::BORDER_CONSTANT, 255);
-				chars[i][j][k] = character;
-			}
-		}
-	}
 
 
 
