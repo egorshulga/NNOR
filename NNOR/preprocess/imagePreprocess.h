@@ -16,13 +16,18 @@ namespace nnor
 		BLUR_MEDIAN
 	};
 
-#define HORIZONTAL	0
-#define VERTICAL	1
+	enum ProjectionType
+	{
+		HORIZONTAL,
+		VERTICAL
+	};
+//#define HORIZONTAL	0
+//#define VERTICAL	1
 
 	//Returns size of the image projection (horizontal or vertical).
-	int getSize(Mat projection, int projectionType);
+	int getSize(Mat projection, ProjectionType projectionType);
 	//Returns dual size of the image projection (how many dots of the currentImage were used to create one dot of the projection).
-	int getDimension(Mat projection, int projectionType);
+	int getDimension(Mat projection, ProjectionType projectionType);
 
 
 	//Returns ROI object defined by a rectangle.
@@ -42,19 +47,19 @@ namespace nnor
 		int blockSize = 5, double c = 2);
 
 	//Returns a one-dimensional Mat representing image projection.
-	Mat projection(Mat src, int projectionType);
+	Mat projection(Mat src, ProjectionType projectionType);
 	//Returns a histogram of the image projection.
-	Mat projectionHistogram(Mat src, int projectionType);
+	Mat projectionHistogram(Mat src, ProjectionType projectionType);
 	//Draws histogram just right on the image.
-	void drawProjectionHistogram(Mat src, int projectionType);
+	void drawProjectionHistogram(Mat src, ProjectionType projectionType);
 	//Returns a one-dimensional Mat representing image projection with a thresholded applied.
-	Mat thresholdedProjection(Mat src, int projectionType, int threshold);
+	Mat thresholdedProjection(Mat src, ProjectionType projectionType, int threshold);
 	//Returns a histogram of the image projection with a threshold applied.
-	Mat thresholdedProjectionHistogram(Mat src, int projectionType, int threshold);
+	Mat thresholdedProjectionHistogram(Mat src, ProjectionType projectionType, int threshold);
 
 	//Performs segmentation using projections and threshold.
 	//Can perform both horizontal and vertical segmentations.
-	vector<Mat> segmentation(Mat src, int separationType, int threshold, int minSeparatorSize, int minObjectSize);
+	vector<Mat> segmentation(Mat src, ProjectionType separationType, int threshold, int minSeparatorSize, int minObjectSize);
 
 	
 	//Crops left, right, top, bottom sides of Mat by a threshold.

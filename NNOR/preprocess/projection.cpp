@@ -3,7 +3,7 @@
 #include <opencv2/imgproc.hpp>
 
 
-int nnor::getSize(Mat projection, int projectionType)
+int nnor::getSize(Mat projection, ProjectionType projectionType)
 {
 	if (projectionType == VERTICAL)
 		return projection.rows;
@@ -12,7 +12,7 @@ int nnor::getSize(Mat projection, int projectionType)
 	return 0;
 }
 
-int nnor::getDimension(Mat projection, int projectionType)
+int nnor::getDimension(Mat projection, ProjectionType projectionType)
 {
 	if (projectionType == VERTICAL)
 		return projection.cols;
@@ -22,7 +22,7 @@ int nnor::getDimension(Mat projection, int projectionType)
 }
 
 
-Mat nnor::projection(Mat src, int projectionType)
+Mat nnor::projection(Mat src, ProjectionType projectionType)
 {
 	Mat projection;
 	reduce(src, projection, projectionType, CV_REDUCE_SUM, CV_32SC1);
@@ -43,7 +43,7 @@ Mat nnor::projection(Mat src, int projectionType)
 }
 
 
-Mat nnor::projectionHistogram(Mat src, int projectionType)
+Mat nnor::projectionHistogram(Mat src, ProjectionType projectionType)
 {
 	Mat projection = nnor::projection(src, projectionType);
 
@@ -68,7 +68,7 @@ Mat nnor::projectionHistogram(Mat src, int projectionType)
 	return projectionHistogram;
 }
 
-void nnor::drawProjectionHistogram(Mat src, int projectionType)
+void nnor::drawProjectionHistogram(Mat src, ProjectionType projectionType)
 {
 	Mat projection = nnor::projection(src, projectionType);
 
@@ -93,7 +93,7 @@ void nnor::drawProjectionHistogram(Mat src, int projectionType)
 }
 
 
-Mat nnor::thresholdedProjection(Mat src, int projectionType, int threshold)
+Mat nnor::thresholdedProjection(Mat src, ProjectionType projectionType, int threshold)
 {
 	Mat projection = nnor::projection(src, projectionType);
 	int histBinsCount = getSize(projection, projectionType);
@@ -107,7 +107,7 @@ Mat nnor::thresholdedProjection(Mat src, int projectionType, int threshold)
 	return projection;
 }
 
-Mat nnor::thresholdedProjectionHistogram(Mat src, int projectionType, int threshold)
+Mat nnor::thresholdedProjectionHistogram(Mat src, ProjectionType projectionType, int threshold)
 {
 	Mat thresholdedProjection = nnor::thresholdedProjection(src, projectionType, threshold);
 	Mat projectionHistogram(src.size(), src.type());

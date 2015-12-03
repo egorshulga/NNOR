@@ -11,7 +11,7 @@
 // - minimal separator size 
 // - minimal object size (i.e. unsatisfactory groups of rows and columns will be ignored)
 //AutoCrop should be applied manually
-vector<Mat> nnor::segmentation(Mat src, int separationType , int threshold, int minSeparatorSize, int minObjectSize)
+vector<Mat> nnor::segmentation(Mat src, ProjectionType separationType , int threshold, int minSeparatorSize, int minObjectSize)
 {
 	vector<Mat> objects;
 	int size = getSize(src, separationType);
