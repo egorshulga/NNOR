@@ -1,10 +1,10 @@
-﻿#include "preprocess.h"
+﻿#include "imagePreprocess.h"
 
 #include <opencv2/imgproc.hpp>
 
-cv::Mat nnor::blur(cv::Mat src, BlurFilterType filterType, cv::Size ksize)
+Mat nnor::blur(Mat src, BlurFilterType filterType, Size ksize)
 {
-	cv::Mat image;
+	Mat image;
 
 	switch(filterType)
 	{

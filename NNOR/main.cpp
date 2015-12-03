@@ -2,53 +2,104 @@
 #include <string>
 #include <vector>
 
-#include "preprocess.h"
+#include "preprocess/imagePreprocess.h"
+#include "preprocess/textPreprocess.h"
 
-std::string inputFile = "D:/for-work/coursework/test/lorem ipsum/simple.png";
+#include "nn/dataEntry.h"
+#include "nn/dataReader.h"
+#include "nn/neuralNetwork.h"
+#include "nn/neuralNetworkTrainer.h"
+#include "ImageProcessor.h"
+
+using namespace std;
+using namespace cv;
+using namespace nnor;
+
+string inputFile = "D:/for-work/coursework/test/lorem ipsum/simple.png";
 //std::string inputFile = "D:/for-work/coursework/test/Scan_20151101 (4).png";
 //std::string inputFile = "D:/for-work/coursework/test/numbers.png";
 
 int main(int argc, char** argv)
 {
-	cv::Mat image = imread(inputFile, cv::IMREAD_GRAYSCALE);
+//	Mat image = imread(inputFile, IMREAD_GRAYSCALE);
 
 //	cv::Mat ROIimage = nnor::selectRectangleROI(image, cv::Rect(150, 100, 1200 - 150, 1500 - 100));
-	cv::Mat ROIimage = image;
+//	Mat ROIimage = image;
 
 //	cv::Mat deskewedImage = nnor::deskew(ROIimage);
-	cv::Mat deskewedImage = ROIimage;
+//	Mat deskewedImage = ROIimage;
 
-	cv::Mat blurredImage = nnor::blur(deskewedImage, nnor::BLUR_GAUSSIAN, cv::Size(1,1));
+//	Mat blurredImage = nnor::blur(deskewedImage, nnor::BLUR_GAUSSIAN, Size(1,1));
 
-	cv::Mat binary = nnor::threshold(blurredImage, cv::THRESH_BINARY, cv::ADAPTIVE_THRESH_GAUSSIAN_C, 11,2);
+//	Mat binary = nnor::threshold(blurredImage, THRESH_BINARY, ADAPTIVE_THRESH_GAUSSIAN_C, 11,2);
 
-	cv::Mat projectionHistogram = nnor::thresholdedProjectionHistogram(binary, VERTICAL, 3);
+//	Mat projectionHistogram = nnor::thresholdedProjectionHistogram(binary, VERTICAL, 3);
+
+	
+	ImageProcessor *imageProcessor = new ImageProcessor(inputFile);
+
+	imageProcessor->blur();
+	auto blurred = imageProcessor->getImage();
+	imageProcessor->threshold();
+	auto thresholded = imageProcessor->getImage();
+
+
+
+
+
+
+
+
 
 //	cv::Mat kernel = cv::Mat::ones(2, 1, CV_8UC1);			//CAN HELP IN CASE OF CHARS TORN
-//	kernel = 255 * kernel;									//
+//	kernel = 255 * kernel;									//(maybe)
 //	morphologyEx(binary, binary, cv::MORPH_OPEN, kernel);
 
-	std::vector<cv::Mat> lines = nnor::segmentation(binary,VERTICAL,1,10,30);
-	std::vector<std::vector<cv::Mat>> words;
-	std::vector<std::vector<std::vector<cv::Mat>>> chars;
+	vector<Mat> lines = segmentation(thresholded,VERTICAL,1,10,30);
+	vector<vector<Mat>> wordsByLines;
+	vector<vector<vector<Mat>>> charactersByWordsByLines;
+	vector<vector<Mat>> charactersByWords;
+	vector<Mat> characters;
 	for(auto line : lines)
 	{
-		words.push_back(nnor::segmentation(line,HORIZONTAL,1,10,20));
+		auto word = nnor::segmentation(line, HORIZONTAL, 1, 15, 20);
+		wordsByLines.push_back(word);
 	}
-	for (auto wordsByLine : words)
+	for (auto wordsByLine : wordsByLines)
 	{
-		std::vector<std::vector<cv::Mat>> charactersByLine;
+		vector<vector<Mat>> charactersByLine;
 		for (auto word : wordsByLine)
 		{
-			auto charactersByWord = nnor::segmentation(word,HORIZONTAL,1,2,4);
-			charactersByLine.push_back(charactersByWord);
+			vector<Mat> charactersByWordInLines = nnor::segmentation(word,HORIZONTAL,1,1,4);
+			charactersByLine.push_back(charactersByWordInLines);
+			charactersByWords.push_back(charactersByWordInLines);
+			characters.insert(characters.end(), charactersByWordInLines.begin(), charactersByWordInLines.end());
+			characters.push_back(Mat::ones(3, 3, CV_8U) * 255);
 		}
-		chars.push_back(charactersByLine);
+		charactersByWordsByLines.push_back(charactersByLine);
 	}
 
 
 
 
+	string loremIpsum = "Lorem ipsum dolor sit amet, eu sanctus corrumpit constituto sed, cu vel sint invidunt. His ut lorem neglegentur, et congue veritus detracto mel. Ei labores facilis pro. Vero mnesarchum et sea, ius ridens scaevola no, modo tota deleniti per id. Facer numquam salutandi pro eu, appareat pertinacia ea quo. ";
+
+	vector<string> loremIpsumWords = nnor::split(loremIpsum, ' ');
+	vector<vector<char>> loremIpsumCharsByWords;
+	for (auto word : loremIpsumWords)
+	{
+		loremIpsumCharsByWords.push_back(nnor::splitWord(word));
+	}
+	vector<char> loremIpsumChars;
+	for (auto character : loremIpsum)
+	{
+		loremIpsumChars.push_back(character);
+	}
+
+	for (auto character : characters)
+	{
+		character = character;
+	}
 
 
 

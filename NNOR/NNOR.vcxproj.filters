@@ -13,35 +13,80 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\ImagePreprocess">
+      <UniqueIdentifier>{bc6b2b4b-f581-4aba-a64c-1e86dd069412}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\TextPreprocess">
+      <UniqueIdentifier>{22129ab5-75d1-4846-b05b-d555ee5e3d71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\NN">
+      <UniqueIdentifier>{c3b17f88-5f2f-49e9-b870-536eee182239}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\NN">
+      <UniqueIdentifier>{0c3802b5-4bc0-48eb-a55b-946a67643970}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="blur.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="deskew.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="projection.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Preprocess\blur.cpp">
+      <Filter>Source Files\ImagePreprocess</Filter>
     </ClCompile>
-    <ClCompile Include="roi.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Preprocess\clipping.cpp">
+      <Filter>Source Files\ImagePreprocess</Filter>
     </ClCompile>
-    <ClCompile Include="threshold.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Preprocess\deskew.cpp">
+      <Filter>Source Files\ImagePreprocess</Filter>
     </ClCompile>
-    <ClCompile Include="segmentation.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Preprocess\projection.cpp">
+      <Filter>Source Files\ImagePreprocess</Filter>
     </ClCompile>
-    <ClCompile Include="clipping.cpp">
+    <ClCompile Include="Preprocess\roi.cpp">
+      <Filter>Source Files\ImagePreprocess</Filter>
+    </ClCompile>
+    <ClCompile Include="Preprocess\segmentation.cpp">
+      <Filter>Source Files\ImagePreprocess</Filter>
+    </ClCompile>
+    <ClCompile Include="Preprocess\threshold.cpp">
+      <Filter>Source Files\ImagePreprocess</Filter>
+    </ClCompile>
+    <ClCompile Include="Preprocess\textSegmentation.cpp">
+      <Filter>Source Files\TextPreprocess</Filter>
+    </ClCompile>
+    <ClCompile Include="nn\dataReader.cpp">
+      <Filter>Source Files\NN</Filter>
+    </ClCompile>
+    <ClCompile Include="nn\neuralNetwork.cpp">
+      <Filter>Source Files\NN</Filter>
+    </ClCompile>
+    <ClCompile Include="nn\neuralNetworkTrainer.cpp">
+      <Filter>Source Files\NN</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageProcessor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="preprocess.h">
+    <ClInclude Include="Preprocess\imagePreprocess.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Preprocess\textPreprocess.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="nn\dataEntry.h">
+      <Filter>Header Files\NN</Filter>
+    </ClInclude>
+    <ClInclude Include="nn\dataReader.h">
+      <Filter>Header Files\NN</Filter>
+    </ClInclude>
+    <ClInclude Include="nn\neuralNetwork.h">
+      <Filter>Header Files\NN</Filter>
+    </ClInclude>
+    <ClInclude Include="nn\neuralNetworkTrainer.h">
+      <Filter>Header Files\NN</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageProcessor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

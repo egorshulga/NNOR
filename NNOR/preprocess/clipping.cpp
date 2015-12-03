@@ -1,10 +1,10 @@
-#include "preprocess.h"
+#include "imagePreprocess.h"
 
 
-cv::Mat nnor::autoCrop(cv::Mat src, int threshold)
+Mat nnor::autoCrop(Mat src, int threshold)
 {
-	cv::Mat verticalProjection = projection(src, VERTICAL);
-	cv::Mat horizontalProjection = projection(src, HORIZONTAL);
+	Mat verticalProjection = projection(src, VERTICAL);
+	Mat horizontalProjection = projection(src, HORIZONTAL);
 
 	int x0, y0, x1, y1;
 	for (x0 = 0; x0 < src.cols; x0++)
@@ -21,14 +21,14 @@ cv::Mat nnor::autoCrop(cv::Mat src, int threshold)
 			break;
 
 	if ((x1 - x0 <= 0) || (y1 - y0 <= 0))
-		return cv::Mat();
+		return Mat();
 
-	cv::Mat result = src(cv::Rect(x0, y0, x1 - x0 + 1, y1 - y0 + 1));
+	Mat result = src(Rect(x0, y0, x1 - x0 + 1, y1 - y0 + 1));
 	return result;
 }
 
 
-void nnor::hierarchicCharactersPadding(std::vector<std::vector<std::vector<cv::Mat>>> chars)
+void nnor::hierarchicCharactersPadding(vector<vector<vector<Mat>>> chars)
 {
 	int nnRows = 0;
 	int nnCols = 0;
@@ -38,7 +38,7 @@ void nnor::hierarchicCharactersPadding(std::vector<std::vector<std::vector<cv::M
 		{
 			for (int k = 0; k < chars[i][j].size(); k++)
 			{
-				chars[i][j][k] = nnor::autoCrop(chars[i][j][k]);
+				chars[i][j][k] = autoCrop(chars[i][j][k]);
 				if (chars[i][j][k].rows > nnRows)
 					nnRows = chars[i][j][k].rows;
 				if (chars[i][j][k].cols > nnCols)
@@ -53,15 +53,31 @@ void nnor::hierarchicCharactersPadding(std::vector<std::vector<std::vector<cv::M
 		{
 			for (int k = 0; k < chars[i][j].size(); k++)
 			{
-				cv::Mat character;
+				Mat character;
 				chars[i][j][k].copyTo(character);
 				int left = (nnCols - character.cols) / 2;
 				int right = nnCols - left - character.cols;
 				int top = (nnRows - character.rows) / 2;
 				int bottom = nnRows - top - character.rows;
-				copyMakeBorder(character, character, top, bottom, left, right, cv::BORDER_CONSTANT, 255);
+				copyMakeBorder(character, character, top, bottom, left, right, BORDER_CONSTANT, 255);
 				chars[i][j][k] = character;
 			}
 		}
 	}
+}
+
+
+void nnor::charactersPadding(vector<Mat> chars)
+{
+	int nnRows = 0;
+	int nnCols = 0;
+	for (int i = 0; i < chars.size(); i++)
+	{
+		chars[i] = autoCrop(chars[i]);
+		if (chars[i].rows > nnRows)
+			nnRows = chars[i].rows;
+		if (chars[i].cols > nnCols)
+			nnCols = chars[i].cols;
+	}
+
 }

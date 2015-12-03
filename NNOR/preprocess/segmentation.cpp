@@ -1,4 +1,4 @@
-﻿#include "preprocess.h"
+﻿#include "imagePreprocess.h"
 
 #include <vector>
 #include <opencv2/core.hpp>
@@ -11,17 +11,17 @@
 // - minimal separator size 
 // - minimal object size (i.e. unsatisfactory groups of rows and columns will be ignored)
 //AutoCrop should be applied manually
-std::vector<cv::Mat> nnor::segmentation(cv::Mat src, int separationType , int threshold, int minSeparatorSize, int minObjectSize)
+vector<Mat> nnor::segmentation(Mat src, int separationType , int threshold, int minSeparatorSize, int minObjectSize)
 {
-	std::vector<cv::Mat> objects;
+	vector<Mat> objects;
 	int size = getSize(src, separationType);
 	int dimension = getDimension(src, separationType);
 
 
-	cv::Mat projection = nnor::projection(src, separationType);
-	cv::Mat projectionHist = nnor::projectionHistogram(src, separationType);		//uncomment to build histogram
-	if (separationType == VERTICAL) line(projectionHist, cv::Point(threshold, 0), cv::Point(threshold, size), cv::Scalar(127));
-	else line(projectionHist, cv::Point(0, threshold), cv::Point(size, threshold), cv::Scalar(127));
+	Mat projection = nnor::projection(src, separationType);
+	Mat projectionHist = projectionHistogram(src, separationType);		//uncomment to build histogram
+	if (separationType == VERTICAL) line(projectionHist, Point(threshold, 0), Point(threshold, size), Scalar(127));
+	else line(projectionHist, Point(0, threshold), Point(size, threshold), Scalar(127));
 
 	for (int i = 0; i < size; i++)  
 	{
@@ -39,10 +39,11 @@ std::vector<cv::Mat> nnor::segmentation(cv::Mat src, int separationType , int th
 			{
 				if (separatorStart - objectStart >= minObjectSize)
 				{
-					cv::Rect objectRect;
-					if (separationType == VERTICAL) objectRect = cv::Rect(0, objectStart, dimension, separatorStart - objectStart);
-					else objectRect = cv::Rect(objectStart, 0, separatorStart - objectStart, dimension);
-					cv::Mat object = src(objectRect);
+					Rect objectRect;
+					if (separationType == VERTICAL) objectRect = Rect(0, objectStart, dimension, separatorStart - objectStart);
+					else objectRect = Rect(objectStart, 0, separatorStart - objectStart, dimension);
+					Mat object = src(objectRect);
+					cv::rectangle(src, objectRect, Scalar(127));
 					objects.push_back(object);
 				}
 				i--;
