@@ -25,7 +25,7 @@
 /*******************************************************************
 * Basic Gradient Descent Trainer with Momentum and Batch Learning
 ********************************************************************/
-class neuralNetworkTrainer
+class NeuralNetworkTrainer
 {
 	//class members
 	//--------------------------------------------------------------------------------------------
@@ -33,7 +33,7 @@ class neuralNetworkTrainer
 private:
 
 	//network to be trained
-	neuralNetwork* NN;
+	NeuralNetwork* NN;
 
 	//learning parameters
 	double learningRate;					// adjusts the step size of the weight update	
@@ -67,7 +67,7 @@ private:
 
 	//log file handle
 	bool loggingEnabled;
-	std::fstream logFile;
+	fstream logFile;
 	int logResolution;
 	int lastEpochLogged;
 
@@ -75,13 +75,13 @@ private:
 	//--------------------------------------------------------------------------------------------
 public:	
 	
-	neuralNetworkTrainer( neuralNetwork* untrainedNetwork );
+	NeuralNetworkTrainer( NeuralNetwork* untrainedNetwork );
 	void setTrainingParameters( double lR, double m, bool batch );
 	void setStoppingConditions( int mEpochs, double dAccuracy);
 	void useBatchLearning( bool flag ){ useBatch = flag; }
 	void enableLogging( const char* filename, int resolution );
 
-	void trainNetwork( trainingDataSet* tSet );
+	void trainNetwork( TrainingDataSet* tSet );
 
 	void backpropagate(double* desiredOutputs);
 
@@ -90,7 +90,7 @@ public:
 private:
 	inline double getOutputErrorGradient( double desiredValue, double outputValue );
 	double getHiddenErrorGradient( int j );
-	void runTrainingEpoch( std::vector<dataEntry*> trainingSet );
+	void runTrainingEpoch( vector<DataEntry*> trainingSet );
 	void updateWeights();
 };
 

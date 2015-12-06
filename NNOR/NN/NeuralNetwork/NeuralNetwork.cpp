@@ -12,7 +12,7 @@ using namespace std;
 /*******************************************************************
 * Constructor
 ********************************************************************/
-neuralNetwork::neuralNetwork(int nI, int nH, int nO) : nInput(nI), nHidden(nH), nOutput(nO)
+NeuralNetwork::NeuralNetwork(int nI, int nH, int nO) : nInput(nI), nHidden(nH), nOutput(nO)
 {				
 	//create neuron lists
 	//--------------------------------------------------------------------------------------------------------
@@ -55,7 +55,7 @@ neuralNetwork::neuralNetwork(int nI, int nH, int nO) : nInput(nI), nHidden(nH), 
 /*******************************************************************
 * Destructor
 ********************************************************************/
-neuralNetwork::~neuralNetwork()
+NeuralNetwork::~NeuralNetwork()
 {
 	//delete neurons
 	delete[] inputNeurons;
@@ -72,7 +72,7 @@ neuralNetwork::~neuralNetwork()
 /*******************************************************************
 * Load Neuron Weights
 ********************************************************************/
-bool neuralNetwork::loadWeights(char* filename)
+bool NeuralNetwork::loadWeights(char* filename)
 {
 	//open file for reading
 	fstream inputFile;
@@ -161,7 +161,7 @@ bool neuralNetwork::loadWeights(char* filename)
 /*******************************************************************
 * Save Neuron Weights
 ********************************************************************/
-bool neuralNetwork::saveWeights(char* filename)
+bool NeuralNetwork::saveWeights(char* filename)
 {
 	//open file for reading
 	fstream outputFile;
@@ -206,7 +206,7 @@ bool neuralNetwork::saveWeights(char* filename)
 /*******************************************************************
 * Feed pattern through network and return results
 ********************************************************************/
-int* neuralNetwork::feedForwardPattern(double *pattern)
+int* NeuralNetwork::feedForwardPattern(double *pattern)
 {
 	feedForward(pattern);
 
@@ -220,7 +220,7 @@ int* neuralNetwork::feedForwardPattern(double *pattern)
 /*******************************************************************
 * Return the NN accuracy on the set
 ********************************************************************/
-double neuralNetwork::getSetAccuracy( vector<dataEntry*>& set )
+double NeuralNetwork::getSetAccuracy( vector<DataEntry*>& set )
 {
 	double incorrectResults = 0;
 		
@@ -251,7 +251,7 @@ double neuralNetwork::getSetAccuracy( vector<dataEntry*>& set )
 /*******************************************************************
 * Return the NN mean squared error on the set
 ********************************************************************/
-double neuralNetwork::getSetMSE( vector<dataEntry*>& set )
+double NeuralNetwork::getSetMSE( vector<DataEntry*>& set )
 {
 	double mse = 0;
 		
@@ -276,7 +276,7 @@ double neuralNetwork::getSetMSE( vector<dataEntry*>& set )
 /*******************************************************************
 * Initialize Neuron Weights
 ********************************************************************/
-void neuralNetwork::initializeWeights()
+void NeuralNetwork::initializeWeights()
 {
 	//set range
 	double rH = 1/sqrt( (double) nInput);
@@ -307,7 +307,7 @@ void neuralNetwork::initializeWeights()
 /*******************************************************************
 * Activation Function
 ********************************************************************/
-inline double neuralNetwork::activationFunction( double x )
+inline double NeuralNetwork::activationFunction( double x )
 {
 	//sigmoid function
 	return 1/(1+exp(-x));
@@ -315,7 +315,7 @@ inline double neuralNetwork::activationFunction( double x )
 /*******************************************************************
 * Output Clamping
 ********************************************************************/
-inline int neuralNetwork::clampOutput( double x )
+inline int NeuralNetwork::clampOutput( double x )
 {
 	if ( x < 0.1 ) return 0;
 	else if ( x > 0.9 ) return 1;
@@ -324,7 +324,7 @@ inline int neuralNetwork::clampOutput( double x )
 /*******************************************************************
 * Feed Forward Operation
 ********************************************************************/
-void neuralNetwork::feedForward(double* pattern)
+void NeuralNetwork::feedForward(double* pattern)
 {
 	//set input neurons to input values
 	for(int i = 0; i < nInput; i++) inputNeurons[i] = pattern[i];

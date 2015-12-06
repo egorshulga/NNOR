@@ -120,28 +120,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ImageProcessor.cpp" />
+    <ClCompile Include="ImageProcessor\ImageProcessor.cpp" />
+    <ClCompile Include="ImageProcessor\preprocess\blur.cpp" />
+    <ClCompile Include="ImageProcessor\preprocess\clipping.cpp" />
+    <ClCompile Include="ImageProcessor\preprocess\deskew.cpp" />
+    <ClCompile Include="ImageProcessor\preprocess\projection.cpp" />
+    <ClCompile Include="ImageProcessor\preprocess\roi.cpp" />
+    <ClCompile Include="ImageProcessor\preprocess\segmentation.cpp" />
+    <ClCompile Include="ImageProcessor\preprocess\threshold.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="nn\dataReader.cpp" />
-    <ClCompile Include="nn\neuralNetwork.cpp" />
-    <ClCompile Include="nn\neuralNetworkTrainer.cpp" />
-    <ClCompile Include="Preprocess\blur.cpp" />
-    <ClCompile Include="Preprocess\clipping.cpp" />
-    <ClCompile Include="Preprocess\deskew.cpp" />
-    <ClCompile Include="Preprocess\projection.cpp" />
-    <ClCompile Include="Preprocess\roi.cpp" />
-    <ClCompile Include="Preprocess\segmentation.cpp" />
-    <ClCompile Include="Preprocess\textSegmentation.cpp" />
-    <ClCompile Include="Preprocess\threshold.cpp" />
+    <ClCompile Include="NN\NeuralNetwork\DataReader.cpp" />
+    <ClCompile Include="NN\NeuralNetwork\NeuralNetwork.cpp" />
+    <ClCompile Include="NN\NeuralNetwork\NeuralNetworkTrainer.cpp" />
+    <ClCompile Include="TextProcessor\preprocess\textSegmentation.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ImageProcessor.h" />
-    <ClInclude Include="nn\dataEntry.h" />
-    <ClInclude Include="nn\dataReader.h" />
-    <ClInclude Include="nn\neuralNetwork.h" />
-    <ClInclude Include="nn\neuralNetworkTrainer.h" />
-    <ClInclude Include="Preprocess\imagePreprocess.h" />
-    <ClInclude Include="Preprocess\textPreprocess.h" />
+    <ClInclude Include="ImageProcessor\ImageProcessor.h" />
+    <ClInclude Include="ImageProcessor\preprocess\imagePreprocess.h" />
+    <ClInclude Include="NN\NeuralNetwork\DataEntry.h" />
+    <ClInclude Include="NN\NeuralNetwork\DataReader.h" />
+    <ClInclude Include="NN\NeuralNetwork\NeuralNetwork.h" />
+    <ClInclude Include="NN\NeuralNetwork\NeuralNetworkTrainer.h" />
+    <ClInclude Include="TextProcessor\preprocess\textPreprocess.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

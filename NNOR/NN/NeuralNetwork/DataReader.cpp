@@ -12,7 +12,7 @@ using namespace std;
 /*******************************************************************
 * Destructor
 ********************************************************************/
-dataReader::~dataReader()
+DataReader::~DataReader()
 {
 	//clear data
 	for (int i=0; i < (int) data.size(); i++ ) delete data[i];		
@@ -21,7 +21,7 @@ dataReader::~dataReader()
 /*******************************************************************
 * Loads a csv file of input data
 ********************************************************************/
-bool dataReader::loadDataFile( const char* filename, int nI, int nT )
+bool DataReader::loadDataFile( const char* filename, int nI, int nT )
 {
 	//clear any previous data
 	for (int i=0; i < (int) data.size(); i++ ) delete data[i];		
@@ -81,7 +81,7 @@ bool dataReader::loadDataFile( const char* filename, int nI, int nT )
 /*******************************************************************
 * Processes a single line from the data file
 ********************************************************************/
-void dataReader::processLine( string &line )
+void DataReader::processLine( string &line )
 {
 	//create new pattern and target
 	double* pattern = new double[nInputs];
@@ -121,12 +121,12 @@ void dataReader::processLine( string &line )
 
 
 	//add to records
-	data.push_back( new dataEntry( pattern, target ) );		
+	data.push_back( new DataEntry( pattern, target ) );		
 }
 /*******************************************************************
 * Selects the data set creation approach
 ********************************************************************/
-void dataReader::setCreationApproach( int approach, double param1, double param2 )
+void DataReader::setCreationApproach( int approach, double param1, double param2 )
 {
 	//static
 	if ( approach == STATIC )
@@ -176,14 +176,14 @@ void dataReader::setCreationApproach( int approach, double param1, double param2
 /*******************************************************************
 * Returns number of data sets created by creation approach
 ********************************************************************/
-int dataReader::getNumTrainingSets()
+int DataReader::getNumTrainingSets()
 {
 	return numTrainingSets;
 }
 /*******************************************************************
 * Get data set created by creation approach
 ********************************************************************/
-trainingDataSet* dataReader::getTrainingDataSet()
+TrainingDataSet* DataReader::getTrainingDataSet()
 {		
 	switch ( creationApproach )
 	{	
@@ -197,7 +197,7 @@ trainingDataSet* dataReader::getTrainingDataSet()
 /*******************************************************************
 * Get all data entries loaded
 ********************************************************************/
-vector<dataEntry*>& dataReader::getAllDataEntries()
+vector<DataEntry*>& DataReader::getAllDataEntries()
 {
 	return data;
 }
@@ -205,7 +205,7 @@ vector<dataEntry*>& dataReader::getAllDataEntries()
 /*******************************************************************
 * Create a static data set (all the entries)
 ********************************************************************/
-void dataReader::createStaticDataSet()
+void DataReader::createStaticDataSet()
 {
 	//training set
 	for ( int i = 0; i < trainingDataEndIndex; i++ ) tSet.trainingSet.push_back( data[i] );		
@@ -214,7 +214,7 @@ void dataReader::createStaticDataSet()
 * Create a growing data set (contains only a percentage of entries
 * and slowly grows till it contains all entries)
 ********************************************************************/
-void dataReader::createGrowingDataSet()
+void DataReader::createGrowingDataSet()
 {
 	//increase data set by step percentage
 	growingLastDataIndex += (int) ceil( growingStepSize * trainingDataEndIndex );		
@@ -230,7 +230,7 @@ void dataReader::createGrowingDataSet()
 * Create a windowed data set ( creates a window over a part of the data
 * set and moves it along until it reaches the end of the date set )
 ********************************************************************/
-void dataReader::createWindowingDataSet()
+void DataReader::createWindowingDataSet()
 {
 	//create end point
 	int endIndex = windowingStartIndex + windowingSetSize;

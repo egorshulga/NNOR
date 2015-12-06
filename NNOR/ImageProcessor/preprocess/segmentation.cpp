@@ -43,7 +43,7 @@ vector<Mat> nnor::segmentation(Mat src, ProjectionType separationType , int thre
 					if (separationType == VERTICAL) objectRect = Rect(0, objectStart, dimension, separatorStart - objectStart);
 					else objectRect = Rect(objectStart, 0, separatorStart - objectStart, dimension);
 					Mat object = src(objectRect);
-					cv::rectangle(src, objectRect, Scalar(127));
+					rectangle(src, objectRect, Scalar(127));
 					objects.push_back(object);
 				}
 				i--;

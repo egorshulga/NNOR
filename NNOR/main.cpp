@@ -2,14 +2,14 @@
 #include <string>
 #include <vector>
 
-#include "preprocess/imagePreprocess.h"
-#include "preprocess/textPreprocess.h"
+#include "ImageProcessor/preprocess/imagePreprocess.h"
+#include "TextProcessor/preprocess/textPreprocess.h"
 
-#include "nn/dataEntry.h"
-#include "nn/dataReader.h"
-#include "nn/neuralNetwork.h"
-#include "nn/neuralNetworkTrainer.h"
-#include "ImageProcessor.h"
+#include "NN/NeuralNetwork/DataEntry.h"
+#include "NN/NeuralNetwork/DataReader.h"
+#include "NN/NeuralNetwork/NeuralNetwork.h"
+#include "NN/NeuralNetwork/NeuralNetworkTrainer.h"
+#include "ImageProcessor/ImageProcessor.h"
 
 using namespace std;
 using namespace cv;
@@ -62,7 +62,7 @@ int main(int argc, char** argv)
 	vector<Mat> characters;
 	for(auto line : lines)
 	{
-		auto word = nnor::segmentation(line, HORIZONTAL, 1, 15, 20);
+		auto word = segmentation(line, HORIZONTAL, 1, 15, 20);
 		wordsByLines.push_back(word);
 	}
 	for (auto wordsByLine : wordsByLines)
@@ -70,7 +70,7 @@ int main(int argc, char** argv)
 		vector<vector<Mat>> charactersByLine;
 		for (auto word : wordsByLine)
 		{
-			vector<Mat> charactersByWordInLines = nnor::segmentation(word,HORIZONTAL,1,1,4);
+			vector<Mat> charactersByWordInLines = segmentation(word,HORIZONTAL,1,1,4);
 			charactersByLine.push_back(charactersByWordInLines);
 			charactersByWords.push_back(charactersByWordInLines);
 			characters.insert(characters.end(), charactersByWordInLines.begin(), charactersByWordInLines.end());
@@ -86,11 +86,11 @@ int main(int argc, char** argv)
 
 	vector<string> loremIpsumWords = nnor::split(loremIpsum, ' ');
 	vector<vector<char>> loremIpsumCharsByWords;
+	vector<char> loremIpsumChars;
 	for (auto word : loremIpsumWords)
 	{
-		loremIpsumCharsByWords.push_back(nnor::splitWord(word));
+		loremIpsumCharsByWords.push_back(splitWord(word));
 	}
-	vector<char> loremIpsumChars;
 	for (auto character : loremIpsum)
 	{
 		loremIpsumChars.push_back(character);

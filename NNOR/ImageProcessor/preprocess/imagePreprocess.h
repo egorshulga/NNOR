@@ -57,14 +57,13 @@ namespace nnor
 	//Returns a histogram of the image projection with a threshold applied.
 	Mat thresholdedProjectionHistogram(Mat src, ProjectionType projectionType, int threshold);
 
+
 	//Performs segmentation using projections and threshold.
 	//Can perform both horizontal and vertical segmentations.
 	vector<Mat> segmentation(Mat src, ProjectionType separationType, int threshold, int minSeparatorSize, int minObjectSize);
-
 	
 	//Crops left, right, top, bottom sides of Mat by a threshold.
 	Mat autoCrop(Mat src, int threshold = 0);
-	
 	
 	//Performs max height and width padding of the hierarchic structured characters.
 	void hierarchicCharactersPadding(vector<vector<vector<Mat>>> images);

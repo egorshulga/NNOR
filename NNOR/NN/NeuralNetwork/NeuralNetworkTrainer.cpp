@@ -11,7 +11,7 @@ using namespace std;
 /*******************************************************************
 * constructor
 ********************************************************************/
-neuralNetworkTrainer::neuralNetworkTrainer( neuralNetwork *nn )	:	NN(nn),
+NeuralNetworkTrainer::NeuralNetworkTrainer( NeuralNetwork *nn )	:	NN(nn),
 																	epoch(0),
 																	learningRate(LEARNING_RATE),
 																	momentum(MOMENTUM),
@@ -54,7 +54,7 @@ neuralNetworkTrainer::neuralNetworkTrainer( neuralNetwork *nn )	:	NN(nn),
 /*******************************************************************
 * Set training parameters
 ********************************************************************/
-void neuralNetworkTrainer::setTrainingParameters( double lR, double m, bool batch )
+void NeuralNetworkTrainer::setTrainingParameters( double lR, double m, bool batch )
 {
 	learningRate = lR;
 	momentum = m;
@@ -63,7 +63,7 @@ void neuralNetworkTrainer::setTrainingParameters( double lR, double m, bool batc
 /*******************************************************************
 * Set stopping parameters
 ********************************************************************/
-void neuralNetworkTrainer::setStoppingConditions( int mEpochs, double dAccuracy )
+void NeuralNetworkTrainer::setStoppingConditions( int mEpochs, double dAccuracy )
 {
 	maxEpochs = mEpochs;
 	desiredAccuracy = dAccuracy;	
@@ -71,7 +71,7 @@ void neuralNetworkTrainer::setStoppingConditions( int mEpochs, double dAccuracy 
 /*******************************************************************
 * Enable training logging
 ********************************************************************/
-void neuralNetworkTrainer::enableLogging(const char* filename, int resolution = 1)
+void NeuralNetworkTrainer::enableLogging(const char* filename, int resolution = 1)
 {
 	//create log file 
 	if ( ! logFile.is_open() )
@@ -95,7 +95,7 @@ void neuralNetworkTrainer::enableLogging(const char* filename, int resolution = 
 /*******************************************************************
 * calculate output error gradient
 ********************************************************************/
-inline double neuralNetworkTrainer::getOutputErrorGradient( double desiredValue, double outputValue)
+inline double NeuralNetworkTrainer::getOutputErrorGradient( double desiredValue, double outputValue)
 {
 	//return error gradient
 	return outputValue * ( 1 - outputValue ) * ( desiredValue - outputValue );
@@ -104,7 +104,7 @@ inline double neuralNetworkTrainer::getOutputErrorGradient( double desiredValue,
 /*******************************************************************
 * calculate input error gradient
 ********************************************************************/
-double neuralNetworkTrainer::getHiddenErrorGradient( int j )
+double NeuralNetworkTrainer::getHiddenErrorGradient( int j )
 {
 	//get sum of hidden->output weights * output error gradients
 	double weightedSum = 0;
@@ -116,7 +116,7 @@ double neuralNetworkTrainer::getHiddenErrorGradient( int j )
 /*******************************************************************
 * Train the NN using gradient descent
 ********************************************************************/
-void neuralNetworkTrainer::trainNetwork( trainingDataSet* tSet )
+void NeuralNetworkTrainer::trainNetwork( TrainingDataSet* tSet )
 {
 	cout	<< endl << " Neural Network Training Starting: " << endl
 			<< "==========================================================================" << endl
@@ -179,7 +179,7 @@ void neuralNetworkTrainer::trainNetwork( trainingDataSet* tSet )
 /*******************************************************************
 * Run a single training epoch
 ********************************************************************/
-void neuralNetworkTrainer::runTrainingEpoch( vector<dataEntry*> trainingSet )
+void NeuralNetworkTrainer::runTrainingEpoch( vector<DataEntry*> trainingSet )
 {
 	//incorrect patterns
 	double incorrectPatterns = 0;
@@ -220,7 +220,7 @@ void neuralNetworkTrainer::runTrainingEpoch( vector<dataEntry*> trainingSet )
 /*******************************************************************
 * Propagate errors back through NN and calculate delta values
 ********************************************************************/
-void neuralNetworkTrainer::backpropagate( double* desiredOutputs )
+void NeuralNetworkTrainer::backpropagate( double* desiredOutputs )
 {		
 	//modify deltas between hidden and output layers
 	//--------------------------------------------------------------------------------------------------------
@@ -261,7 +261,7 @@ void neuralNetworkTrainer::backpropagate( double* desiredOutputs )
 /*******************************************************************
 * Update weights using delta values
 ********************************************************************/
-void neuralNetworkTrainer::updateWeights()
+void NeuralNetworkTrainer::updateWeights()
 {
 	//input -> hidden weights
 	//--------------------------------------------------------------------------------------------------------

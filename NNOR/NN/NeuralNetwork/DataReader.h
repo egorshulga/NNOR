@@ -12,10 +12,12 @@
 #include <vector>
 #include <string>
 
+using namespace std;
+
 /*******************************************************************
 * stores a data item
 ********************************************************************/
-class dataEntry
+class DataEntry
 {
 public:	
 	
@@ -24,9 +26,9 @@ public:
 
 public:	
 
-	dataEntry(double* p, double* t): pattern(p), target(t) {}
+	DataEntry(double* p, double* t): pattern(p), target(t) {}
 		
-	~dataEntry()
+	~DataEntry()
 	{				
 		delete[] pattern;
 		delete[] target;
@@ -37,15 +39,15 @@ public:
 /*******************************************************************
 * Training Sets Storage - stores shortcuts to data items
 ********************************************************************/
-class trainingDataSet
+class TrainingDataSet
 {
 public:
 
-	std::vector<dataEntry*> trainingSet;
-	std::vector<dataEntry*> generalizationSet;
-	std::vector<dataEntry*> validationSet;
+	vector<DataEntry*> trainingSet;
+	vector<DataEntry*> generalizationSet;
+	vector<DataEntry*> validationSet;
 
-	trainingDataSet(){}
+	TrainingDataSet(){}
 	
 	void clear()
 	{
@@ -59,7 +61,7 @@ public:
 enum { NONE, STATIC, GROWING, WINDOWING };
 
 //data reader class
-class dataReader
+class DataReader
 {
 	
 //private members
@@ -67,12 +69,12 @@ class dataReader
 private:
 
 	//data storage
-	std::vector<dataEntry*> data;
+	vector<DataEntry*> data;
 	int nInputs;
 	int nTargets;
 
 	//current data set
-	trainingDataSet tSet;
+	TrainingDataSet tSet;
 
 	//data set creation approach and total number of dataSets
 	int creationApproach;
@@ -90,15 +92,15 @@ private:
 //----------------------------------------------------------------------------------------------------------------
 public:
 
-	dataReader(): creationApproach(NONE), numTrainingSets(-1) {}
-	~dataReader();
+	DataReader(): creationApproach(NONE), numTrainingSets(-1) {}
+	~DataReader();
 	
 	bool loadDataFile( const char* filename, int nI, int nT );
 	void setCreationApproach( int approach, double param1 = -1, double param2 = -1 );
 	int getNumTrainingSets();	
 	
-	trainingDataSet* getTrainingDataSet();
-	std::vector<dataEntry*>& getAllDataEntries();
+	TrainingDataSet* getTrainingDataSet();
+	vector<DataEntry*>& getAllDataEntries();
 
 //private methods
 //----------------------------------------------------------------------------------------------------------------
@@ -107,7 +109,7 @@ private:
 	void createStaticDataSet();
 	void createGrowingDataSet();
 	void createWindowingDataSet();	
-	void processLine( std::string &line );
+	void processLine( string &line );
 };
 
 #endif

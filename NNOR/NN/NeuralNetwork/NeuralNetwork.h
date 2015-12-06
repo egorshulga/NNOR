@@ -10,9 +10,9 @@
 
 #include "dataReader.h"
 
-class neuralNetworkTrainer;
+class NeuralNetworkTrainer;
 
-class neuralNetwork
+class NeuralNetwork
 {
 	//class members
 	//--------------------------------------------------------------------------------------------
@@ -32,7 +32,7 @@ private:
 		
 	//Friends
 	//--------------------------------------------------------------------------------------------
-	friend neuralNetworkTrainer;
+	friend NeuralNetworkTrainer;
 	
 	//public methods
 	//--------------------------------------------------------------------------------------------
@@ -40,15 +40,15 @@ private:
 public:
 
 	//constructor & destructor
-	neuralNetwork(int numInput, int numHidden, int numOutput);
-	~neuralNetwork();
+	NeuralNetwork(int numInput, int numHidden, int numOutput);
+	~NeuralNetwork();
 
 	//weight operations
 	bool loadWeights(char* inputFilename);
 	bool saveWeights(char* outputFilename);
 	int* feedForwardPattern( double* pattern );
-	double getSetAccuracy( std::vector<dataEntry*>& set );
-	double getSetMSE( std::vector<dataEntry*>& set );
+	double getSetAccuracy( vector<DataEntry*>& set );
+	double getSetMSE( vector<DataEntry*>& set );
 
 	//private methods
 	//--------------------------------------------------------------------------------------------

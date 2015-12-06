@@ -42,22 +42,20 @@ namespace nnor
 
 	void ImageProcessor::setROI(Rect roi)
 	{
-		previousImage = currentImage;
-		currentImage = selectRectangleROI(previousImage, roi);
+		roiImage = selectRectangleROI(currentImage, roi);
+		currentImage = roiImage;
 	}
 
 
 	void ImageProcessor::blur(BlurFilterType filterType, Size ksize)
 	{
-		previousImage = currentImage;
-		currentImage = nnor::blur(previousImage, filterType, ksize);
+		blurredImage = nnor::blur(currentImage, filterType, ksize);
+		currentImage = blurredImage;
 	}
 
 
 	void ImageProcessor::rotate(double currentAngle)
 	{
-		previousImage = currentImage;
-
 		double angle = currentAngle - previousAngle;
 		previousAngle = currentAngle;
 		
@@ -69,33 +67,33 @@ namespace nnor
 		// adjust transformation matrix
 		rot.at<double>(0, 2) += bbox.width / 2.0 - center.x;
 		rot.at<double>(1, 2) += bbox.height / 2.0 - center.y;
-		warpAffine(previousImage, currentImage, rot, bbox.size(), INTER_LINEAR, BORDER_CONSTANT, Scalar(255,255,255));
+		warpAffine(currentImage, rotatedImage, rot, bbox.size(), INTER_LINEAR, BORDER_CONSTANT, Scalar(255,255,255));
+		currentImage = rotatedImage;
 	}
 
 
 	void ImageProcessor::rotate()
 	{
-		previousImage = currentImage;
-		currentImage = deskew(defaultImage);
+		rotatedImage = deskew(currentImage);
+		currentImage = rotatedImage;
 	}
 
 
 	void ImageProcessor::threshold(ThresholdTypes thresholdType, AdaptiveThresholdTypes adaptiveThresholdType, int blockSize, double c)
 	{
-		previousImage = currentImage;
-		currentImage = nnor::threshold(previousImage, thresholdType, adaptiveThresholdType, blockSize, c);
+		thresholdedImage = nnor::threshold(currentImage, thresholdType, adaptiveThresholdType, blockSize, c);
+		currentImage = thresholdedImage;
 	}
 
 
-	Mat ImageProcessor::getHistogram(int histogramType) const
+	Mat ImageProcessor::getHistogram(ProjectionType histogramType) const
 	{
 		return projectionHistogram(currentImage, histogramType);
 	}
 
 
-	void ImageProcessor::drawHistogram(int histogramType)
+	void ImageProcessor::drawHistogram(ProjectionType histogramType) const
 	{
-		previousImage = currentImage;
 		drawProjectionHistogram(currentImage, histogramType);
 	}
 }

@@ -7,7 +7,7 @@
 
 using namespace std;
 
-//class dataEntry
+//class DataEntry
 //{
 //public:
 	
@@ -22,9 +22,9 @@ using namespace std;
 //	----------------------------------------------------------------------------------------------------------------
 
 //	constructor
-//	dataEntry(double* p, double* t): pattern(p), target(t) {}
+//	DataEntry(double* p, double* t): pattern(p), target(t) {}
 		
-//	~dataEntry()
+//	~DataEntry()
 //	{				
 //		delete[] pattern;
 //		delete[] target;

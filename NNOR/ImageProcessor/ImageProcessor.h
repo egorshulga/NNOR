@@ -36,8 +36,8 @@ namespace nnor
 		void threshold(ThresholdTypes thresholdType = THRESH_BINARY,
 			AdaptiveThresholdTypes adaptiveThresholdType = ADAPTIVE_THRESH_GAUSSIAN_C, int blockSize = 5, double c = 2);
 
-		Mat getHistogram(int histogramType) const;	
-		void drawHistogram(int histogramType) ;
+		Mat getHistogram(ProjectionType histogramType) const;
+		void drawHistogram(ProjectionType histogramType) const;
 
 	private:
 		void reassignAllImages(Mat image);
