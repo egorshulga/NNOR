@@ -1,38 +1,37 @@
-///////////////////////////////////////////////////////////
-//  TextProcessor.h
-//  Implementation of the Class TextProcessor
-//  Created on:      07-Dec-2015 09:52:45
-//  Original author: egors
-///////////////////////////////////////////////////////////
-
-#if !defined(EA_AE186D2B_FFDD_4628_90E6_E3AE474A2C17__INCLUDED_)
-#define EA_AE186D2B_FFDD_4628_90E6_E3AE474A2C17__INCLUDED_
+#pragma once
 
 #include <string>
 #include <vector>
 
 using namespace std;
 
-class TextProcessor
+namespace nnor 
 {
+	class TextProcessor
+	{
+		TextProcessor();
 
-public:
-	TextProcessor();
-	virtual ~TextProcessor();
+	private:	//Input data
+		wstring text = L"";
 
-	void performSplitting();
-	vector<string> getWords();
-	vector<vector<char>> getCharsByWords();
-	vector<string> getChars();
+	public:
+		void setText(wstring text);
 
-private:
-	vector<string> words;
-	vector<vector<char>> charactersByWords;
-	vector<string> characters;
 
-	void splitIntoWords();
-	void splitWordsIntoChars();
-	void splitIntoChars();
+	private:	//Output data
+		vector<wstring> words;
+		vector<vector<wchar_t>> charsByWords;
+		vector<wchar_t> characters;
 
-};
-#endif // !defined(EA_AE186D2B_FFDD_4628_90E6_E3AE474A2C17__INCLUDED_)
+		void splitIntoWords();
+		void splitWordsIntoChars();
+		void splitIntoChars();
+
+	public:
+		vector<wstring> getWords();
+		vector<vector<wchar_t>> getCharsByWords();
+		vector<wchar_t> getCharacters();
+
+		void performSplitting();
+	};
+}

@@ -4,21 +4,24 @@
 #include <string>
 #include <sstream>
 
-
-std::vector<std::string> nnor::split(const std::string &s, char delim) 
+using namespace std;
+namespace nnor
 {
-	std::vector<std::string> elems;
-	std::stringstream ss(s);
-	std::string item;
-	while (getline(ss, item, delim)) 
-		elems.push_back(item);
-	return elems;
-}
+	vector<wstring> nnor::split(const wstring &s, wchar_t delim)
+	{
+		vector<wstring> elems;
+		wstringstream ss(s);
+		wstring item;
+		while (getline(ss, item, delim))
+			elems.push_back(item);
+		return elems;
+	}
 
-std::vector<char> nnor::splitWord(std::string word)
-{
-	std::vector<char> splittedWord;
-	for (char character : word)
-		splittedWord.push_back(character);
-	return splittedWord;
+	vector<wchar_t> nnor::splitWord(wstring word)
+	{
+		vector<wchar_t> splittedWord;
+		for (wchar_t character : word)
+			splittedWord.push_back(character);
+		return splittedWord;
+	}
 }

@@ -3,10 +3,11 @@
 #include <string>
 #include <vector>
 
+using namespace std;
+
 namespace nnor
 {
+	vector<wstring> nnor::split(const wstring &s, wchar_t delim);
 
-	std::vector<std::string> split(const std::string &s, char delim);
-
-	std::vector<char> splitWord(std::string word);
+	vector<wchar_t> nnor::splitWord(wstring word);
 }
