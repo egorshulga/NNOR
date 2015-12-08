@@ -7,93 +7,143 @@ namespace nnor
 {
 	ImageProcessor::ImageProcessor(Mat image)
 	{
-		image.copyTo(defaultImage);
-
-		reassignAllImages(image);
+//		image.copyTo(defaultImage);
+		defaultImage = image;
 	}
-
-	void ImageProcessor::reassignAllImages(Mat image)
-	{
-		roiImage = image;
-		rotatedImage = image;
-		blurredImage = image;
-		thresholdedImage = image;
-
-		currentImage = image;
-	}
-
-
+	
 	ImageProcessor::ImageProcessor(string imagePath) : ImageProcessor(imread(imagePath, IMREAD_GRAYSCALE))
 	{ }
 
-
-	void ImageProcessor::reset()
+	void ImageProcessor::setImage(Mat image)
 	{
-		defaultImage.copyTo(currentImage);
-		reassignAllImages(currentImage);
+		defaultImage = image;
+		roi = Rect(0, 0, image.cols, image.rows);
+		performRoiSelecting();
+		performRotation();
+		performBlurring();
+		performThresholding();
+	}
+
+	void ImageProcessor::setRoi(Rect roi)
+	{
+		this->roi = roi;
+		performRoiSelecting();
+		performRotation();
+		performBlurring();
+		performThresholding();
+	}
+
+	void ImageProcessor::setRotationAngle(int angle)
+	{
+		this->rotationAngle = angle;
+		performRotation();
+		performBlurring();
+		performThresholding();
+	}
+
+//	const int automatedRotationPerformed = -1;
+	void ImageProcessor::performAutomaticRotation()
+	{
+//		setRotationAngle(automatedRotationPerformed);
+		defaultImage = deskew(defaultImage);
+		setImage(defaultImage);
+	}
+
+	void ImageProcessor::setBlurFilterType(BlurFilterType filterType)
+	{
+		this->filterType = filterType;
+		performBlurring();
+		performThresholding();
+	}
+
+	void ImageProcessor::setBlurKernelSize(Size ksize)
+	{
+		this->ksize = ksize;
+		performBlurring();
+		performThresholding();
+	}
+
+	void ImageProcessor::setThresholdType(ThresholdTypes thresholdType)
+	{
+		this->thresholdType = thresholdType;
+		performThresholding();
+	}
+
+	void ImageProcessor::setAdaptiveThresholdType(AdaptiveThresholdTypes type)
+	{
+		this->adaptiveThresholdType = type;
+		performThresholding();
+	}
+
+	void ImageProcessor::setThresholdBlockSize(int size)
+	{
+		this->thresholdBlockSize = size;
+		performThresholding();
 	}
 
 
-	Mat ImageProcessor::getImage() const
+	void ImageProcessor::setThresholdSkew(int skew)
 	{
-		return currentImage;
+		this->thresholdSkew = skew;
+		performThresholding();
 	}
 
-
-	void ImageProcessor::setROI(Rect roi)
+	void ImageProcessor::performRoiSelecting()
 	{
-		roiImage = selectRectangleROI(currentImage, roi);
-		currentImage = roiImage;
+		roiImage = selectRectangleROI(defaultImage, roi);
 	}
 
-
-	void ImageProcessor::blur(BlurFilterType filterType, Size ksize)
+	void ImageProcessor::performRotation()
 	{
-		blurredImage = nnor::blur(currentImage, filterType, ksize);
-		currentImage = blurredImage;
-	}
-
-
-	void ImageProcessor::rotate(double currentAngle)
-	{
-		double angle = currentAngle - previousAngle;
-		previousAngle = currentAngle;
-		
 		// get rotation matrix for rotating the image around its center
-		Point2f center(currentImage.cols / 2.0, currentImage.rows / 2.0);
-		Mat rot = getRotationMatrix2D(center, angle, 1.0);
+		Point2f center(roiImage.cols / 2.0, roiImage.rows / 2.0);
+		Mat rot = getRotationMatrix2D(center, rotationAngle, 1.0);
 		// determine bounding rectangle
-		Rect bbox = RotatedRect(center, currentImage.size(), angle).boundingRect();
+		Rect bbox = RotatedRect(center, roiImage.size(), rotationAngle).boundingRect();
 		// adjust transformation matrix
 		rot.at<double>(0, 2) += bbox.width / 2.0 - center.x;
 		rot.at<double>(1, 2) += bbox.height / 2.0 - center.y;
-		warpAffine(currentImage, rotatedImage, rot, bbox.size(), INTER_LINEAR, BORDER_CONSTANT, Scalar(255,255,255));
-		currentImage = rotatedImage;
+		warpAffine(roiImage, rotatedImage, rot, bbox.size(), INTER_LINEAR, BORDER_CONSTANT, Scalar(255,255,255));
 	}
 
-
-	void ImageProcessor::rotate()
+	void ImageProcessor::performBlurring()
 	{
-		rotatedImage = deskew(currentImage);
-		currentImage = rotatedImage;
+		blurredImage = blur(rotatedImage, filterType, ksize);
 	}
 
-
-	void ImageProcessor::threshold(ThresholdTypes thresholdType, AdaptiveThresholdTypes adaptiveThresholdType, int blockSize, double c)
+	void ImageProcessor::performThresholding()
 	{
-		thresholdedImage = nnor::threshold(currentImage, thresholdType, adaptiveThresholdType, blockSize, c);
-		currentImage = thresholdedImage;
+		thresholdedImage = threshold(blurredImage, thresholdType, adaptiveThresholdType, thresholdBlockSize, thresholdSkew);
 	}
 
-
-	Mat ImageProcessor::getHistogram(ProjectionType histogramType) const
+	Mat ImageProcessor::getRoiImage()
 	{
-		return projectionHistogram(currentImage, histogramType);
+		return roiImage;
 	}
 
-
-	void ImageProcessor::drawHistogram(ProjectionType histogramType) const
+	Mat ImageProcessor::getRotatedImage()
 	{
-		drawProjectionHistogram(currentImage, histogramType);
+		return rotatedImage;
 	}
+
+	Mat ImageProcessor::getBlurredImage()
+	{
+		return blurredImage;
+	}
+
+	Mat ImageProcessor::getThresholdedImage()
+	{
+		return thresholdedImage;
+	}
+
+//	Mat ImageProcessor::getHistogram(ProjectionType histogramType) const
+//	{
+//		return projectionHistogram(currentImage, histogramType);
+//	}
+
+
+//	void ImageProcessor::drawHistogram(ProjectionType histogramType) const
+//	{
+//		drawProjectionHistogram(currentImage, histogramType);
+//	}
 }
