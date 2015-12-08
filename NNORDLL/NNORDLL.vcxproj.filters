@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\ImageProcessor">
+      <UniqueIdentifier>{e456d9f3-906a-40ef-87a6-bc7a6817b61a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ImageProcessor\preprocess">
+      <UniqueIdentifier>{60ef4ce5-4a8d-4536-8a76-66c4528bc369}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\NN">
+      <UniqueIdentifier>{42083ceb-460f-4e81-a5fd-6e40d4fb0b81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\NN\NeuralNetwork">
+      <UniqueIdentifier>{e293cb0a-8c8c-47f9-af46-f18d8d14b122}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\TextProcessor">
+      <UniqueIdentifier>{148ee82b-d60f-4b91-999d-91f447b3fa04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\TextProcessor\preprocess">
+      <UniqueIdentifier>{dd2a3a4b-94d3-4e71-8eac-c84fba68620a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ImageProcessor">
+      <UniqueIdentifier>{6429bddd-e6d7-4d72-ba6e-864995a1e7bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ImageProcessor\preprocess">
+      <UniqueIdentifier>{a03f9103-13c6-4df3-9125-136d5ca88e3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\NN">
+      <UniqueIdentifier>{344c9d04-ceaa-470c-9124-92cbec4a0dac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\NN\NeuralNetwork">
+      <UniqueIdentifier>{b7812602-b8bd-402b-9db8-6c76eec57e5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\TextProcessor">
+      <UniqueIdentifier>{35a7b217-fa15-4aca-8432-0ed0f31b82b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\TextProcessor\preprocess">
+      <UniqueIdentifier>{07301f61-edbb-4f78-836b-1d8d7a4f1bcc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\TextImageNN">
+      <UniqueIdentifier>{b42e87e5-0797-4ad6-8124-16e8506dad18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\TextImageNN">
+      <UniqueIdentifier>{b72d2e1e-989c-4224-9552-bce7b171d1b6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ImageProcessor\preprocess\imagePreprocess.h">
+      <Filter>Header Files\ImageProcessor\preprocess</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageProcessor\ImageProcessor.h">
+      <Filter>Header Files\ImageProcessor</Filter>
+    </ClInclude>
+    <ClInclude Include="NN\NeuralNetwork\DataEntry.h">
+      <Filter>Header Files\NN\NeuralNetwork</Filter>
+    </ClInclude>
+    <ClInclude Include="NN\NeuralNetwork\DataReader.h">
+      <Filter>Header Files\NN\NeuralNetwork</Filter>
+    </ClInclude>
+    <ClInclude Include="NN\NeuralNetwork\NeuralNetwork.h">
+      <Filter>Header Files\NN\NeuralNetwork</Filter>
+    </ClInclude>
+    <ClInclude Include="NN\NeuralNetwork\NeuralNetworkTrainer.h">
+      <Filter>Header Files\NN\NeuralNetwork</Filter>
+    </ClInclude>
+    <ClInclude Include="TextProcessor\preprocess\textPreprocess.h">
+      <Filter>Header Files\TextProcessor\preprocess</Filter>
+    </ClInclude>
+    <ClInclude Include="TextProcessor\TextProcessor.h">
+      <Filter>Header Files\TextProcessor</Filter>
+    </ClInclude>
+    <ClInclude Include="NN\NN.h">
+      <Filter>Header Files\NN</Filter>
+    </ClInclude>
+    <ClInclude Include="TextImageNN\TextImageNN.h">
+      <Filter>Header Files\TextImageNN</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageProcessor\ImageSegmenter.h">
+      <Filter>Header Files\ImageProcessor</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ImageProcessor\preprocess\blur.cpp">
+      <Filter>Source Files\ImageProcessor\preprocess</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageProcessor\preprocess\clipping.cpp">
+      <Filter>Source Files\ImageProcessor\preprocess</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageProcessor\preprocess\deskew.cpp">
+      <Filter>Source Files\ImageProcessor\preprocess</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageProcessor\preprocess\projection.cpp">
+      <Filter>Source Files\ImageProcessor\preprocess</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageProcessor\preprocess\roi.cpp">
+      <Filter>Source Files\ImageProcessor\preprocess</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageProcessor\preprocess\segmentation.cpp">
+      <Filter>Source Files\ImageProcessor\preprocess</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageProcessor\preprocess\threshold.cpp">
+      <Filter>Source Files\ImageProcessor\preprocess</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageProcessor\ImageProcessor.cpp">
+      <Filter>Source Files\ImageProcessor</Filter>
+    </ClCompile>
+    <ClCompile Include="NN\NeuralNetwork\DataReader.cpp">
+      <Filter>Source Files\NN\NeuralNetwork</Filter>
+    </ClCompile>
+    <ClCompile Include="NN\NeuralNetwork\NeuralNetwork.cpp">
+      <Filter>Source Files\NN\NeuralNetwork</Filter>
+    </ClCompile>
+    <ClCompile Include="NN\NeuralNetwork\NeuralNetworkTrainer.cpp">
+      <Filter>Source Files\NN\NeuralNetwork</Filter>
+    </ClCompile>
+    <ClCompile Include="TextProcessor\preprocess\textSegmentation.cpp">
+      <Filter>Source Files\TextProcessor\preprocess</Filter>
+    </ClCompile>
+    <ClCompile Include="TextProcessor\TextProcessor.cpp">
+      <Filter>Source Files\TextProcessor</Filter>
+    </ClCompile>
+    <ClCompile Include="NN\NN.cpp">
+      <Filter>Source Files\NN</Filter>
+    </ClCompile>
+    <ClCompile Include="TextImageNN\TextImageNN.cpp">
+      <Filter>Source Files\TextImageNN</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageProcessor\ImageSegmenter.cpp">
+      <Filter>Source Files\ImageProcessor</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

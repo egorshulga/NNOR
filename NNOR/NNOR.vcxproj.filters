@@ -13,105 +13,10 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\NN">
-      <UniqueIdentifier>{d2ca2d2d-4fd5-4b4e-a6f0-24fccace4ea4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\NN">
-      <UniqueIdentifier>{6ff7cc1d-530a-4a8b-88a5-bcf62ff4df0b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\NN\NeuralNetwork">
-      <UniqueIdentifier>{65999ccc-afc7-4b3e-84d6-287dc28b4c25}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\NN\NeuralNetwork">
-      <UniqueIdentifier>{ea570d30-5aa1-4e1f-90c2-0bdb994fffaa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\TextProcessor">
-      <UniqueIdentifier>{980dd42c-d43d-43f3-8282-b000ae7722a7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\TextProcessor\preprocess">
-      <UniqueIdentifier>{d6ed90f4-564f-46dc-b553-57033e6d7edd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\TextProcessor">
-      <UniqueIdentifier>{c810a2d8-30e9-4bfe-b5b5-fb4109804a6e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\TextProcessor\preprocess">
-      <UniqueIdentifier>{955a9355-37dd-444a-b520-9b1de1f2483a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\ImageProcessor">
-      <UniqueIdentifier>{16423338-55f9-446b-b171-8c229fc17271}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\ImageProcessor">
-      <UniqueIdentifier>{b643a14b-96ae-4d4b-8444-a9ca29782c63}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\ImageProcessor\preprocess">
-      <UniqueIdentifier>{cbf93ee6-ad5a-4db5-863c-9f9095804181}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\ImageProcessor\preprocess">
-      <UniqueIdentifier>{f7d87b30-c57b-4728-9619-9fb880311fcf}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ImageProcessor\preprocess\blur.cpp">
-      <Filter>Source Files\ImageProcessor\preprocess</Filter>
-    </ClCompile>
-    <ClCompile Include="ImageProcessor\preprocess\clipping.cpp">
-      <Filter>Source Files\ImageProcessor\preprocess</Filter>
-    </ClCompile>
-    <ClCompile Include="ImageProcessor\preprocess\deskew.cpp">
-      <Filter>Source Files\ImageProcessor\preprocess</Filter>
-    </ClCompile>
-    <ClCompile Include="ImageProcessor\preprocess\projection.cpp">
-      <Filter>Source Files\ImageProcessor\preprocess</Filter>
-    </ClCompile>
-    <ClCompile Include="ImageProcessor\preprocess\roi.cpp">
-      <Filter>Source Files\ImageProcessor\preprocess</Filter>
-    </ClCompile>
-    <ClCompile Include="ImageProcessor\preprocess\segmentation.cpp">
-      <Filter>Source Files\ImageProcessor\preprocess</Filter>
-    </ClCompile>
-    <ClCompile Include="ImageProcessor\preprocess\threshold.cpp">
-      <Filter>Source Files\ImageProcessor\preprocess</Filter>
-    </ClCompile>
-    <ClCompile Include="NN\NeuralNetwork\DataReader.cpp">
-      <Filter>Source Files\NN\NeuralNetwork</Filter>
-    </ClCompile>
-    <ClCompile Include="NN\NeuralNetwork\NeuralNetwork.cpp">
-      <Filter>Source Files\NN\NeuralNetwork</Filter>
-    </ClCompile>
-    <ClCompile Include="NN\NeuralNetwork\NeuralNetworkTrainer.cpp">
-      <Filter>Source Files\NN\NeuralNetwork</Filter>
-    </ClCompile>
-    <ClCompile Include="TextProcessor\preprocess\textSegmentation.cpp">
-      <Filter>Source Files\TextProcessor\preprocess</Filter>
-    </ClCompile>
-    <ClCompile Include="ImageProcessor\ImageProcessor.cpp">
-      <Filter>Source Files\ImageProcessor</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="ImageProcessor\preprocess\imagePreprocess.h">
-      <Filter>Header Files\ImageProcessor\preprocess</Filter>
-    </ClInclude>
-    <ClInclude Include="NN\NeuralNetwork\DataEntry.h">
-      <Filter>Header Files\NN\NeuralNetwork</Filter>
-    </ClInclude>
-    <ClInclude Include="NN\NeuralNetwork\DataReader.h">
-      <Filter>Header Files\NN\NeuralNetwork</Filter>
-    </ClInclude>
-    <ClInclude Include="NN\NeuralNetwork\NeuralNetwork.h">
-      <Filter>Header Files\NN\NeuralNetwork</Filter>
-    </ClInclude>
-    <ClInclude Include="NN\NeuralNetwork\NeuralNetworkTrainer.h">
-      <Filter>Header Files\NN\NeuralNetwork</Filter>
-    </ClInclude>
-    <ClInclude Include="TextProcessor\preprocess\textPreprocess.h">
-      <Filter>Header Files\TextProcessor\preprocess</Filter>
-    </ClInclude>
-    <ClInclude Include="ImageProcessor\ImageProcessor.h">
-      <Filter>Header Files\ImageProcessor</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>
