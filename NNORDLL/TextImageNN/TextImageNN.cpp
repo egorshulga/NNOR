@@ -143,6 +143,8 @@ namespace nnor
 		}
 	}
 
+	
+
 	void TextImageNN::recognize()
 	{
 		vector<vector<Mat>> segmentedImage = imageSegmenter->getCharsByWords();
@@ -199,4 +201,21 @@ namespace nnor
 		return result;
 	}
 
+
+	void TextImageNN::resetNN(wstring nnFilepath)
+	{
+		delete nn;
+		nn = new NN(nnFilepath);
+	}
+
+	void TextImageNN::saveNNState(wstring nnFilepath)
+	{
+		nn->saveWeights(nnFilepath);
+	}
+
+	void TextImageNN::resetNN()
+	{
+		delete nn;
+		nn = new NN(imageProcessor->getImage().rows, imageProcessor->getImage().cols, HIDDENNEURONSNUMBER, OUTPUTNEURONSNUMBER);
+	}
 }

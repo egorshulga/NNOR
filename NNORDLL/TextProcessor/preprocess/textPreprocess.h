@@ -7,7 +7,7 @@ using namespace std;
 
 namespace nnor
 {
-	vector<wstring> nnor::split(const wstring &s, wchar_t delim);
+	vector<wstring> split(const wstring &s, wchar_t delim);
 
-	vector<wchar_t> nnor::splitWord(wstring word);
+	vector<wchar_t> splitWord(wstring word);
 }

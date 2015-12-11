@@ -90,6 +90,9 @@
     <ClInclude Include="ImageProcessor\ImageSegmenter.h">
       <Filter>Header Files\ImageProcessor</Filter>
     </ClInclude>
+    <ClInclude Include="ITextImageNN.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ImageProcessor\preprocess\blur.cpp">

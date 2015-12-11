@@ -7,12 +7,17 @@
 #include "../ImageProcessor/ImageProcessor.h"
 #include "../TextProcessor/TextProcessor.h"
 
+#include "../ITextImageNN.h"
+
 using namespace std;
 using namespace cv;
 
 namespace nnor
 {
-	class TextImageNN
+#define OUTPUTNEURONSNUMBER sizeof(wchar_t)*CHAR_BIT
+#define HIDDENNEURONSNUMBER 20
+
+	class TextImageNN : public ITextImageNN
 	{
 		ImageSegmenter *imageSegmenter = nullptr;
 		ImageProcessor *imageProcessor = nullptr;
@@ -22,37 +27,47 @@ namespace nnor
 	public:
 		TextImageNN();
 
-		void setImage(string imagePath);
-		Mat getImage();
-		void setROI(Rect roi);
-		void setRotationAngle(double angle);
-		void performAutomaticRotation();
-		void setBlurFilterType(BlurFilterType filterType);
-		void setBlurSize(Size size);
-		void setThresholdType(ThresholdTypes type);
-		void setAdaptiveThresholdType(AdaptiveThresholdTypes type);
-		void setThresholdBlockSize(int size);
-		void setThresholdSkew(double c);
+		void setImage(string imagePath) override;
+		Mat getImage() override;
+		void setROI(Rect roi) override;
+		void setRotationAngle(double angle) override;
+		void performAutomaticRotation() override;
+		void setBlurFilterType(BlurFilterType filterType) override;
+		void setBlurSize(Size size) override;
+		void setThresholdType(ThresholdTypes type) override;
+		void setAdaptiveThresholdType(AdaptiveThresholdTypes type) override;
+		void setThresholdBlockSize(int size) override;
+		void setThresholdSkew(double c) override;
 
-		void setLinesThreshold(int threshold);
-		void setLinesMinSeparatorSize(int size);
-		void setLinesMinObjectSize(int size);
-		void setWordsThreshold(int threshold);
-		void setWordsMinSeparatorSize(int size);
-		void setWordsMinObjectSize(int size);
-		void setCharsThreshold(int threshold);
-		void setCharsMinSeparatorSize(int size);
-		void setCharsMinObjectSize(int size);
+		void setLinesThreshold(int threshold) override;
+		void setLinesMinSeparatorSize(int size) override;
+		void setLinesMinObjectSize(int size) override;
+		void setWordsThreshold(int threshold) override;
+		void setWordsMinSeparatorSize(int size) override;
+		void setWordsMinObjectSize(int size) override;
+		void setCharsThreshold(int threshold) override;
+		void setCharsMinSeparatorSize(int size) override;
+		void setCharsMinObjectSize(int size) override;
 
-		void setText(wstring text);
-		wstring getText();
+		void setText(wstring text) override;
+		wstring getText() override;
 
-		void train();
-		void recognize();
+		void train() override;
+		void recognize() override;
+
+		void resetNN(wstring nnFilepath) override;
+		void saveNNState(wstring nnFilepath) override;
+		void resetNN() override;
 
 	private:
 		vector<int> toIntArray(Mat image);
 		vector<int> toIntArray(wchar_t character);
 		wchar_t toWchar_t(vector<int> array);
 	};
+
+
+	extern "C" __declspec(dllexport) ITextImageNN* __cdecl createInstance()
+	{
+		return new TextImageNN();
+	}
 }
