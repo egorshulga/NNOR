@@ -156,5 +156,11 @@ namespace nnor
 	{
 		return characters;
 	}
+
+	Mat ImageSegmenter::getImage()
+	{
+		return image;
+	}
+
 }
 

@@ -36,7 +36,6 @@ private:
 	
 	//public methods
 	//--------------------------------------------------------------------------------------------
-
 public:
 
 	//constructor & destructor
@@ -52,9 +51,7 @@ public:
 
 	//private methods
 	//--------------------------------------------------------------------------------------------
-
 private: 
-
 	void initializeWeights();
 	inline double activationFunction( double x );
 	inline int clampOutput( double x );

@@ -1,103 +1,118 @@
-///////////////////////////////////////////////////////////
-//  TextImageNN.cpp
-//  Implementation of the Class TextImageNN
-//  Created on:      07-Dec-2015 09:52:45
-//  Original author: egors
-///////////////////////////////////////////////////////////
-
 #include "TextImageNN.h"
 
 
-TextImageNN::TextImageNN(){
+nnor::TextImageNN::TextImageNN()
+{
+	imageProcessor = new ImageProcessor();
 
 }
 
-
-
-TextImageNN::~TextImageNN(){
-
+void nnor::TextImageNN::setImage(string imagePath)
+{
+	imageProcessor->setImage(imagePath);
 }
 
-
-
-
-
-string TextImageNN::getText(){
-
-	return  NULL;
+Mat nnor::TextImageNN::getImage()
+{
+	return imageSegmenter->getImage();
 }
 
-
-void TextImageNN::setText(string text){
-
+void nnor::TextImageNN::setROI(Rect roi)
+{
+	imageProcessor->setRoi(roi);
+	imageSegmenter->setImage(imageProcessor->getImage());
 }
 
-
-Mat TextImageNN::getImage(){
-
-	return  NULL;
+void nnor::TextImageNN::setRotationAngle(double angle)
+{
+	imageProcessor->setRotationAngle(angle);
+	imageSegmenter->setImage(imageProcessor->getImage());
 }
 
-
-TextImageNN::setImage(image){
-
+void nnor::TextImageNN::performAutomaticRotation()
+{
+	imageProcessor->performAutomaticRotation();
+	imageSegmenter->setImage(imageProcessor->getImage());
 }
 
-
-Mat TextImageNN::setROI(Rect roi){
-
-	return  NULL;
+void nnor::TextImageNN::setBlurFilterType(BlurFilterType filterType)
+{
+	imageProcessor->setBlurFilterType(filterType);
+	imageSegmenter->setImage(imageProcessor->getImage());
 }
 
-
-Mat TextImageNN::setRotationAngle(double angle){
-
-	return  NULL;
+void nnor::TextImageNN::setBlurSize(Size size)
+{	
+	imageProcessor->setBlurKernelSize(size);
+	imageSegmenter->setImage(imageProcessor->getImage());
 }
 
-
-Mat TextImageNN::performAutomaticRotation(){
-
-	return  NULL;
+void nnor::TextImageNN::setThresholdType(ThresholdTypes type)
+{
+	imageProcessor->setThresholdType(type);
+	imageSegmenter->setImage(imageProcessor->getImage());
 }
 
-
-Mat TextImageNN::setBlurFilterType(BlurFilterType filterType){
-
-	return  NULL;
+void nnor::TextImageNN::setAdaptiveThresholdType(AdaptiveThresholdTypes type)
+{
+	imageProcessor->setAdaptiveThresholdType(type);
+	imageSegmenter->setImage(imageProcessor->getImage());
 }
 
-
-Mat TextImageNN::setBlurSize(Size size){
-
-	return  NULL;
+void nnor::TextImageNN::setThresholdBlockSize(int size)
+{
+	imageProcessor->setThresholdBlockSize(size);
+	imageSegmenter->setImage(imageProcessor->getImage());
 }
 
-
-Mat TextImageNN::setThresholdType(ThresholdTypes type){
-
-	return  NULL;
+void nnor::TextImageNN::setThresholdSkew(double c)
+{
+	imageProcessor->setThresholdSkew(c);
+	imageSegmenter->setImage(imageProcessor->getImage());
 }
 
-
-Mat TextImageNN::setAdaptiveThresholdType(AdaptiveThresholdTypes type){
-
-	return  NULL;
+void nnor::TextImageNN::setLinesThreshold(int threshold)
+{
+	imageSegmenter->setLinesThreshold(threshold);
 }
 
-
-Mat TextImageNN::setThresholdBlockSize(int size){
-
-	return  NULL;
+void nnor::TextImageNN::setLinesMinSeparatorSize(int size)
+{
+	imageSegmenter->setLinesMinSeparatorSize(size);
 }
 
-
-Mat TextImageNN::setThresholdSkew(double c){
-
-	return  NULL;
+void nnor::TextImageNN::setLinesMinObjectSize(int size)
+{
+	imageSegmenter->setLinesMinObjectSize(size);
 }
 
-
-void TextImageNN::setImage(image){
-
+void nnor::TextImageNN::setWordsThreshold(int threshold)
+{
+	imageSegmenter->setWordsThreshold(threshold);
 }
+
+void nnor::TextImageNN::setWordsMinSeparatorSize(int size)
+{
+	imageSegmenter->setWordsMinSeparatorSize(size);
+}
+
+void nnor::TextImageNN::setWordsMinObjectSize(int size)
+{
+	imageSegmenter->setWordsMinObjectSize(size);
+}
+
+void nnor::TextImageNN::setCharsThreshold(int threshold)
+{
+	imageSegmenter->setCharsThreshold(threshold);
+}
+
+void nnor::TextImageNN::setCharsMinSeparatorSize(int size)
+{
+	imageSegmenter->setCharsMinSeparatorSize(size);
+}
+
+void nnor::TextImageNN::setCharsMinObjectSize(int size)
+{
+	imageSegmenter->setCharsMinObjectSize(size);
+}
+

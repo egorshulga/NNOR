@@ -14,6 +14,9 @@ namespace nnor
 	ImageProcessor::ImageProcessor(string imagePath) : ImageProcessor(imread(imagePath, IMREAD_GRAYSCALE))
 	{ }
 
+	ImageProcessor::ImageProcessor()
+	{ }
+
 	void ImageProcessor::setImage(Mat image)
 	{
 		defaultImage = image;
@@ -22,6 +25,11 @@ namespace nnor
 		performRotation();
 		performBlurring();
 		performThresholding();
+	}
+
+	void ImageProcessor::setImage(string imagePath)
+	{
+		setImage(imread(imagePath, IMREAD_GRAYSCALE));
 	}
 
 	void ImageProcessor::setRoi(Rect roi)
@@ -86,6 +94,11 @@ namespace nnor
 	{
 		this->thresholdSkew = skew;
 		performThresholding();
+	}
+
+	Mat ImageProcessor::getImage()
+	{
+		return getThresholdedImage();
 	}
 
 	void ImageProcessor::performRoiSelecting()

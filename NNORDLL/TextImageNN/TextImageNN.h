@@ -1,12 +1,4 @@
-///////////////////////////////////////////////////////////
-//  TextImageNN.h
-//  Implementation of the Class TextImageNN
-//  Created on:      07-Dec-2015 09:52:45
-//  Original author: egors
-///////////////////////////////////////////////////////////
-
-#if !defined(EA_C3AB34C6_3481_49ed_BB63_80E73507D3A9__INCLUDED_)
-#define EA_C3AB34C6_3481_49ed_BB63_80E73507D3A9__INCLUDED_
+#pragma once
 
 #include <opencv2/core.hpp>
 
@@ -17,39 +9,51 @@
 
 using namespace std;
 using namespace cv;
-using namespace nnor;
 
-
-class TextImageNN
+namespace nnor
 {
+	class TextImageNN
+	{
+		ImageSegmenter *imageSegmenter = nullptr;
+		ImageProcessor *imageProcessor = nullptr;
+		TextProcessor *textProcessor = nullptr;
+		NN *nn = nullptr;
 
-public:
-	TextImageNN();
-	virtual ~TextImageNN();
-	ImageSegmenter *m_ImageSegmenter;
-	ImageProcessor *m_ImageProcessor;
-	TextProcessor *m_TextProcessor;
-	NN *m_NN;
+	public:
+		TextImageNN();
 
-	string getText();
-	void setText(string text);
-	Mat getImage();
-	setImage(image);
-	Mat setROI(Rect roi);
-	Mat setRotationAngle(double angle);
-	Mat performAutomaticRotation();
-	Mat setBlurFilterType(BlurFilterType filterType);
-	Mat setBlurSize(Size size);
-	Mat setThresholdType(ThresholdTypes type);
-	Mat setAdaptiveThresholdType(AdaptiveThresholdTypes type);
-	Mat setThresholdBlockSize(int size);
-	Mat setThresholdSkew(double c);
-	void setImage(image);
+		void setImage(string imagePath);
+		Mat getImage();
+		void setROI(Rect roi);
+		void setRotationAngle(double angle);
+		void performAutomaticRotation();
+		void setBlurFilterType(BlurFilterType filterType);
+		void setBlurSize(Size size);
+		void setThresholdType(ThresholdTypes type);
+		void setAdaptiveThresholdType(AdaptiveThresholdTypes type);
+		void setThresholdBlockSize(int size);
+		void setThresholdSkew(double c);
 
-private:
-	string text;
-	Mat image;
-	NN nn;
+		void setLinesThreshold(int threshold);
+		void setLinesMinSeparatorSize(int size);
+		void setLinesMinObjectSize(int size);
+		void setWordsThreshold(int threshold);
+		void setWordsMinSeparatorSize(int size);
+		void setWordsMinObjectSize(int size);
+		void setCharsThreshold(int threshold);
+		void setCharsMinSeparatorSize(int size);
+		void setCharsMinObjectSize(int size);
 
-};
-#endif // !defined(EA_C3AB34C6_3481_49ed_BB63_80E73507D3A9__INCLUDED_)
+//		wstring getRecognizedText();
+//		void setText(wstring text);
+
+//		void train();
+//		void recognize();
+
+	private:
+//		int* toIntArray(Mat image);
+//		int* toIntArray(wstring text);
+//		Mat toMat(int* array);
+//		wstring toWstring(int* array);
+	};
+}

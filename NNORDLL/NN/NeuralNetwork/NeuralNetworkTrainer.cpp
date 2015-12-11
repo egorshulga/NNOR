@@ -233,8 +233,8 @@ void NeuralNetworkTrainer::backpropagate( double* desiredOutputs )
 		for (int j = 0; j <= NN->nHidden; j++) 
 		{				
 			//calculate change in weight
-			if ( !useBatch ) deltaHiddenOutput[j][k] = learningRate * NN->hiddenNeurons[j] * outputErrorGradients[k] + momentum * deltaHiddenOutput[j][k];
-			else deltaHiddenOutput[j][k] += learningRate * NN->hiddenNeurons[j] * outputErrorGradients[k];
+			if ( useBatch ) deltaHiddenOutput[j][k] += learningRate * NN->hiddenNeurons[j] * outputErrorGradients[k];
+			else deltaHiddenOutput[j][k] = learningRate * NN->hiddenNeurons[j] * outputErrorGradients[k] + momentum * deltaHiddenOutput[j][k];
 		}
 	}
 
@@ -249,8 +249,8 @@ void NeuralNetworkTrainer::backpropagate( double* desiredOutputs )
 		for (int i = 0; i <= NN->nInput; i++)
 		{
 			//calculate change in weight 
-			if ( !useBatch ) deltaInputHidden[i][j] = learningRate * NN->inputNeurons[i] * hiddenErrorGradients[j] + momentum * deltaInputHidden[i][j];
-			else deltaInputHidden[i][j] += learningRate * NN->inputNeurons[i] * hiddenErrorGradients[j]; 
+			if ( useBatch ) deltaInputHidden[i][j] += learningRate * NN->inputNeurons[i] * hiddenErrorGradients[j];
+			else deltaInputHidden[i][j] = learningRate * NN->inputNeurons[i] * hiddenErrorGradients[j] + momentum * deltaInputHidden[i][j]; 
 
 		}
 	}

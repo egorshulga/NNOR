@@ -1,35 +1,73 @@
-///////////////////////////////////////////////////////////
-//  NN.h
-//  Implementation of the Class NN
-//  Created on:      07-Dec-2015 09:52:44
-//  Original author: egors
-///////////////////////////////////////////////////////////
-
-#if !defined(EA_C4EF62E5_F3F8_4c29_B029_D34552549A5E__INCLUDED_)
-#define EA_C4EF62E5_F3F8_4c29_B029_D34552549A5E__INCLUDED_
+#pragma once
 
 #include <opencv2/core.hpp>
 
-#include "NeuralNetwork/NeuralNetwork.h"
-#include "NeuralNetwork/NeuralNetworkTrainer.h"
 
 using namespace std;
 using namespace cv;
 
-class NN
+namespace nnor
 {
+	class NN
+	{
+		//number of neurons
+		int nInput, nHidden, nOutput;
+		//input neurons resolution
+		//multiplicity of these values is equal to nInput
+		int nInputHeight;
+		int nInputWidth;
 
-public:
-	NN();
-	NeuralNetwork *neuralNetwork;
-	NeuralNetworkTrainer *trainer;
+		//neurons
+		double* inputNeurons;
+		double* hiddenNeurons;
+		double* outputNeurons;
 
-	string recognize(vector<Mat> chars);
-	void train(vector<Mat> chars, string text);
+		//weights
+		double** wInputHidden;
+		double** wHiddenOutput;
 
-private:
-	double* transformToDataEntry(Mat character);
-	double* transformToDataEntry(char character);
+		//change to weights
+		double** deltaInputHidden;
+		double** deltaHiddenOutput;
 
-};
-#endif // !defined(EA_C4EF62E5_F3F8_4c29_B029_D34552549A5E__INCLUDED_)
+		//error gradients
+		double* hiddenErrorGradients;
+		double* outputErrorGradients;
+		//batch learning flag
+		bool useBatch = false;
+
+		//learning parameters
+		double learningRate;					// adjusts the step size of the weight update	
+		double momentum;						// improves performance of stochastic learning (don't use for batch)
+
+
+	public:
+		NN(wstring inputFilename);
+		NN(int numInputHeight, int numInputWidth, int numHidden, int numOutput);
+		~NN();
+
+		int getNumberOfInputNeurons();
+		int getInputNeuronsHeight();
+		int getInputNeuronsWidth();
+
+		//weight operations
+//		bool loadWeights(wstring inputFilename);
+		bool saveWeights(wstring outputFilename);
+		int* feedForwardPattern(int* pattern);
+		void setTrainingParameters(double lR, double m, bool batch);
+		void trainWithPattern(int* pattern, int* target);
+
+
+
+	private:
+		void createNeuronsAndWeightsLists();
+		void initializeWeights();
+		inline double activationFunction(double x);
+		inline int clampOutput(double x);
+		void feedForward(int* pattern);
+		void backpropagate(int* target);
+		double getOutputErrorGradient(double desiredValue, double outputValue);
+		double getHiddenErrorGradient(int j);
+		void updateWeights();
+	};
+}

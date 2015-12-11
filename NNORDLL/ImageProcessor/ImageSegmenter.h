@@ -39,6 +39,7 @@ namespace nnor
 		int charsMinObjectSize = 4;
 	public:
 		void setImage(Mat image);
+		Mat getImage();
 		void setLinesThreshold(int threshold);
 		void setLinesMinSeparatorSize(int size);
 		void setLinesMinObjectSize(int size);
@@ -77,5 +78,6 @@ namespace nnor
 		void performSegmentation();
 
 	};
+
 }
 #endif // !defined(EA_89BFA354_E964_403d_BA88_EDDA8CF53C35__INCLUDED_)
