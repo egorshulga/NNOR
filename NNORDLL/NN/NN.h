@@ -53,9 +53,9 @@ namespace nnor
 		//weight operations
 //		bool loadWeights(wstring inputFilename);
 		bool saveWeights(wstring outputFilename);
-		int* feedForwardPattern(int* pattern);
+		vector<int> feedForwardPattern(vector<int> pattern);
 		void setTrainingParameters(double lR, double m, bool batch);
-		void trainWithPattern(int* pattern, int* target);
+		void trainWithPattern(vector<int> pattern, vector<int> target);
 
 
 
@@ -64,8 +64,8 @@ namespace nnor
 		void initializeWeights();
 		inline double activationFunction(double x);
 		inline int clampOutput(double x);
-		void feedForward(int* pattern);
-		void backpropagate(int* target);
+		void feedForward(vector<int> pattern);
+		void backpropagate(vector<int> target);
 		double getOutputErrorGradient(double desiredValue, double outputValue);
 		double getHiddenErrorGradient(int j);
 		void updateWeights();

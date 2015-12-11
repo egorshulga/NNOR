@@ -269,12 +269,12 @@ namespace nnor
 
 
 
-	int* NN::feedForwardPattern(int* pattern)
+	vector<int> NN::feedForwardPattern(vector<int> pattern)
 	{
 		feedForward(pattern);
 
 		//create copy of output results
-		int* results = new int[nOutput];
+		vector<int> results(nOutput, 0);
 		//	for (int i = 0; i < nOutput; i++) results[i] = outputNeurons[i];
 		for (int i = 0; i < nOutput; i++) results[i] = clampOutput(outputNeurons[i]);
 
@@ -365,7 +365,7 @@ namespace nnor
 	}
 
 
-	void NN::feedForward(int* pattern)
+	void NN::feedForward(vector<int> pattern)
 	{
 		//set input neurons to input values
 		for (int i = 0; i < nInput; i++) inputNeurons[i] = pattern[i];
@@ -399,13 +399,13 @@ namespace nnor
 		}
 	}
 
-	void NN::trainWithPattern(int* pattern, int* target)
+	void NN::trainWithPattern(vector<int> pattern, vector<int> target)
 	{
 		feedForward(pattern);
 		backpropagate(target);
 	}
 
-	void NN::backpropagate(int* desiredOutputs)
+	void NN::backpropagate(vector<int> desiredOutputs)
 	{
 		//modify deltas between hidden and output layers
 		//--------------------------------------------------------------------------------------------------------

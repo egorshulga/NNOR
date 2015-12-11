@@ -9,6 +9,7 @@ namespace nnor
 {
 	class TextProcessor
 	{
+	public:
 		TextProcessor();
 
 	private:	//Input data
@@ -16,7 +17,7 @@ namespace nnor
 
 	public:
 		void setText(wstring text);
-
+		wstring getText();
 
 	private:	//Output data
 		vector<wstring> words;

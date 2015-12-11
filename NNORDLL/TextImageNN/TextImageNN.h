@@ -44,16 +44,15 @@ namespace nnor
 		void setCharsMinSeparatorSize(int size);
 		void setCharsMinObjectSize(int size);
 
-//		wstring getRecognizedText();
-//		void setText(wstring text);
+		void setText(wstring text);
+		wstring getText();
 
-//		void train();
-//		void recognize();
+		void train();
+		void recognize();
 
 	private:
-//		int* toIntArray(Mat image);
-//		int* toIntArray(wstring text);
-//		Mat toMat(int* array);
-//		wstring toWstring(int* array);
+		vector<int> toIntArray(Mat image);
+		vector<int> toIntArray(wchar_t character);
+		wchar_t toWchar_t(vector<int> array);
 	};
 }

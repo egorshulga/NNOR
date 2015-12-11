@@ -15,6 +15,11 @@ namespace nnor
 		splitIntoChars();
 	}
 
+	wstring TextProcessor::getText()
+	{
+		return text;
+	}
+
 	void TextProcessor::splitIntoWords()
 	{
 		words = split(text, ' ');
