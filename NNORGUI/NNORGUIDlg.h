@@ -4,6 +4,7 @@
 
 #pragma once
 #include <opencv2/core/base.hpp>
+#include "afxcmn.h"
 
 
 // CNNORGUIDlg dialog
@@ -37,4 +38,8 @@ public:
 //	afx_msg void OnCbnSelchangeType();
 	afx_msg void OnBnClickedFile();
 	afx_msg void OnClose();
+	afx_msg void OnBnClickedRotation();
+	afx_msg void OnTRBNThumbPosChangingAngle(NMHDR *pNMHDR, LRESULT *pResult);
+	CSliderCtrl angleSlider;
+	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
 };

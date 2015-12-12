@@ -20,6 +20,8 @@ using namespace nnor;
 
 void CNNORGUIDlg::drawMatOnControl(cv::Mat cvImg, UINT ID)
 {
+	cvtColor(cvImg, cvImg, CV_GRAY2RGB);
+
 	// Get the HDC handle information from the ID passed
 	CDC *pDC = GetDlgItem(ID)->GetDC();
 	HDC hDCDst = pDC->GetSafeHdc();
@@ -31,7 +33,15 @@ void CNNORGUIDlg::drawMatOnControl(cv::Mat cvImg, UINT ID)
 	cv::Mat cvImgTmp(winSize, CV_8UC3);
 	if (cvImg.size() != winSize)
 	{
-		cv::resize(cvImg, cvImgTmp, winSize);
+		double xScale = (double)winSize.width / cvImg.cols;
+		double yScale = (double)winSize.height / cvImg.rows;
+		double scale = (xScale > yScale) ? yScale : xScale;
+		cv::resize(cvImg, cvImgTmp, Size(0,0), scale, scale);
+		int left = (winSize.width - cvImgTmp.cols) / 2;
+		int right = winSize.width - left - cvImgTmp.cols;
+		int top = (winSize.height - cvImgTmp.rows) / 2;
+		int bottom = winSize.height - top - cvImgTmp.rows;
+		copyMakeBorder(cvImgTmp, cvImgTmp, top, bottom, left, right, BORDER_CONSTANT, Scalar(255,255,255));
 	}
 	else
 	{
@@ -114,6 +124,7 @@ CNNORGUIDlg::CNNORGUIDlg(CWnd* pParent /*=NULL*/)
 void CNNORGUIDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, ANGLE, angleSlider);
 }
 
 BEGIN_MESSAGE_MAP(CNNORGUIDlg, CDialogEx)
@@ -123,6 +134,9 @@ BEGIN_MESSAGE_MAP(CNNORGUIDlg, CDialogEx)
 //	ON_CBN_SELCHANGE(BLUR_TYPE, &CNNORGUIDlg::OnCbnSelchangeType)
 ON_BN_CLICKED(OPEN_FILE, &CNNORGUIDlg::OnBnClickedFile)
 ON_WM_CLOSE()
+ON_BN_CLICKED(AUTOMATIC_ROTATION, &CNNORGUIDlg::OnBnClickedRotation)
+ON_NOTIFY(TRBN_THUMBPOSCHANGING, ANGLE, &CNNORGUIDlg::OnTRBNThumbPosChangingAngle)
+ON_WM_HSCROLL()
 END_MESSAGE_MAP()
 
 
@@ -167,15 +181,16 @@ BOOL CNNORGUIDlg::OnInitDialog()
 		wcerr << L"Dll could not be loaded!" << endl;
 		return FALSE;
 	}
-
 	ITextImageNNFactory factory = (ITextImageNNFactory)GetProcAddress(dllHandle, "createInstance");
 	if (!factory)
 	{
 		wcerr << L"CreateInstance function could not be found!" << endl;
 		return FALSE;
 	}
-
 	textImageNN = factory();
+
+	//Slider init
+	angleSlider.SetRange(0, 360);
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -242,13 +257,13 @@ void CNNORGUIDlg::OnBnClickedFile()
 	filePath[0] = 0;
 	ofn.lpstrFile = filePath;
 	ofn.nMaxFile = MAX_PATH;
-	ofn.lpstrFilter = L"Windows bitmaps (*.bmp)\0*.bmp\0JPEG files (*.jpg)\0*.jpg\0Portable Network Graphics (*.png)\0*.png\0\0";
+	ofn.lpstrFilter = L"Portable Network Graphics (*.png)\0*.png\0Windows bitmaps (*.bmp)\0*.bmp\0JPEG files (*.jpg)\0*.jpg\0\0";
 
 	if (GetOpenFileName(&ofn))
 	{
 		wstring imagePath(ofn.lpstrFile);
-		CopyFile(imagePath.c_str(), L"./tempImage", FALSE);
-		textImageNN->setImage("tempImage");
+		CopyFile(imagePath.c_str(), L"c:/temp/tempImage", FALSE);
+		textImageNN->setImage("c:/temp/tempImage");
 		
 		drawMatOnControl(textImageNN->getImage(), IMAGE_BOX);
 	}
@@ -260,4 +275,34 @@ void CNNORGUIDlg::OnClose()
 	// TODO: Add your message handler code here and/or call default
 	textImageNN->destroy();
 	CDialogEx::OnClose();
+}
+
+
+void CNNORGUIDlg::OnBnClickedRotation()
+{
+	textImageNN->performAutomaticRotation();
+	drawMatOnControl(textImageNN->getImage(), IMAGE_BOX);
+}
+
+
+void CNNORGUIDlg::OnTRBNThumbPosChangingAngle(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	// This feature requires Windows Vista or greater.
+	// The symbol _WIN32_WINNT must be >= 0x0600.
+	NMTRBTHUMBPOSCHANGING *pNMTPC = reinterpret_cast<NMTRBTHUMBPOSCHANGING *>(pNMHDR);
+	// TODO: Add your control notification handler code here
+	*pResult = 0;
+
+
+}
+
+
+void CNNORGUIDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
+{
+	// TODO: Add your message handler code here and/or call default
+	int angle = angleSlider.GetPos();
+	textImageNN->setRotationAngle(angle);
+	drawMatOnControl(textImageNN->getImage(), IMAGE_BOX);
+
+	CDialogEx::OnHScroll(nSBCode, nPos, pScrollBar);
 }
