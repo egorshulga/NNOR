@@ -16,10 +16,11 @@ namespace nnor
 	public:
 		virtual void setImage(string imagePath) = 0;
 		virtual Mat getImage() = 0;
+//		virtual HBITMAP getBitmap() = 0;
 		virtual void setROI(Rect roi) = 0;
 		virtual void setRotationAngle(double angle) = 0;
 		virtual void performAutomaticRotation() = 0;
-		virtual void setBlurFilterType(nnor::BlurFilterType filterType) = 0;
+		virtual void setBlurFilterType(BlurFilterType filterType) = 0;
 		virtual void setBlurSize(Size size) = 0;
 		virtual void setThresholdType(ThresholdTypes type) = 0;
 		virtual void setAdaptiveThresholdType(AdaptiveThresholdTypes type) = 0;
@@ -54,6 +55,5 @@ namespace nnor
 
 
 	typedef ITextImageNN* (__cdecl *ITextImageNNFactory)();
-	#define ITEXTIMAGENNCREATEINSTANCE (L"createInstance")
 
 }

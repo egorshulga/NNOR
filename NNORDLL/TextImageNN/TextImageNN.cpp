@@ -12,12 +12,21 @@ namespace nnor
 	void TextImageNN::setImage(string imagePath)
 	{
 		imageProcessor->setImage(imagePath);
+		imageSegmenter->setImage(imageProcessor->getImage());
 	}
 
 	Mat TextImageNN::getImage()
 	{
 		return imageSegmenter->getImage();
 	}
+
+//	HBITMAP TextImageNN::getBitmap()
+//	{
+//		Mat image;
+//		getImage().copyTo(image);
+//		cvtColor(image, image, CV_BGRA2RGBA);
+//		return CreateBitmap(image.cols, image.rows, 1, 32, image.data);
+//	}
 
 	void TextImageNN::setROI(Rect roi)
 	{

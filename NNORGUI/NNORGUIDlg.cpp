@@ -7,10 +7,66 @@
 #include "NNORGUIDlg.h"
 #include "afxdialogex.h"
 
+#include <string>
+#include <iostream>
+#include "../NNORDLL/ITextImageNN.h"
+using namespace std;
+using namespace nnor;
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
 
+
+void CNNORGUIDlg::drawMatOnControl(cv::Mat cvImg, UINT ID)
+{
+	// Get the HDC handle information from the ID passed
+	CDC *pDC = GetDlgItem(ID)->GetDC();
+	HDC hDCDst = pDC->GetSafeHdc();
+	CRect rect;
+	GetDlgItem(ID)->GetClientRect(&rect);
+	cv::Size winSize(rect.right, rect.bottom);
+
+	// Resize the source to the size of the destination image if necessary
+	cv::Mat cvImgTmp(winSize, CV_8UC3);
+	if (cvImg.size() != winSize)
+	{
+		cv::resize(cvImg, cvImgTmp, winSize);
+	}
+	else
+	{
+		cvImgTmp = cvImg;
+	}
+
+	// Rotate the image
+	cv::flip(cvImgTmp, cvImgTmp, 0);
+
+	// Initialize the BITMAPINFO structure
+	BITMAPINFO bitInfo;
+	bitInfo.bmiHeader.biBitCount = 24;
+	bitInfo.bmiHeader.biWidth = winSize.width;
+	bitInfo.bmiHeader.biHeight = winSize.height;
+	bitInfo.bmiHeader.biPlanes = 1;
+	bitInfo.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
+	bitInfo.bmiHeader.biCompression = BI_RGB;
+	bitInfo.bmiHeader.biClrImportant = 0;
+	bitInfo.bmiHeader.biClrUsed = 0;
+	bitInfo.bmiHeader.biSizeImage = 0;
+	bitInfo.bmiHeader.biXPelsPerMeter = 0;
+	bitInfo.bmiHeader.biYPelsPerMeter = 0;
+
+	// Add header and OPENCV image's data to the HDC
+	StretchDIBits(hDCDst, 0, 0,
+		winSize.width, winSize.height, 0, 0,
+		winSize.width, winSize.height,
+		cvImgTmp.data, &bitInfo, DIB_RGB_COLORS, SRCCOPY);
+
+	ReleaseDC(pDC);
+}
+
+
+
+ITextImageNN *textImageNN = nullptr;
 
 // CAboutDlg dialog used for App About
 
@@ -64,6 +120,9 @@ BEGIN_MESSAGE_MAP(CNNORGUIDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+//	ON_CBN_SELCHANGE(BLUR_TYPE, &CNNORGUIDlg::OnCbnSelchangeType)
+ON_BN_CLICKED(OPEN_FILE, &CNNORGUIDlg::OnBnClickedFile)
+ON_WM_CLOSE()
 END_MESSAGE_MAP()
 
 
@@ -99,6 +158,24 @@ BOOL CNNORGUIDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
 	// TODO: Add extra initialization here
+
+	//DLL loading
+	wstring dllPath = L"NNORDLL.dll";
+	HINSTANCE dllHandle = LoadLibrary(dllPath.c_str());
+	if (!dllHandle)
+	{
+		wcerr << L"Dll could not be loaded!" << endl;
+		return FALSE;
+	}
+
+	ITextImageNNFactory factory = (ITextImageNNFactory)GetProcAddress(dllHandle, "createInstance");
+	if (!factory)
+	{
+		wcerr << L"CreateInstance function could not be found!" << endl;
+		return FALSE;
+	}
+
+	textImageNN = factory();
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -152,3 +229,35 @@ HCURSOR CNNORGUIDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+
+
+
+
+void CNNORGUIDlg::OnBnClickedFile()
+{
+	// TODO: Add your control notification handler code here
+	OPENFILENAME ofn = { 0 };
+	ofn.lStructSize = sizeof(ofn);
+	wchar_t *filePath = new wchar_t[MAX_PATH];
+	filePath[0] = 0;
+	ofn.lpstrFile = filePath;
+	ofn.nMaxFile = MAX_PATH;
+	ofn.lpstrFilter = L"Windows bitmaps (*.bmp)\0*.bmp\0JPEG files (*.jpg)\0*.jpg\0Portable Network Graphics (*.png)\0*.png\0\0";
+
+	if (GetOpenFileName(&ofn))
+	{
+		wstring imagePath(ofn.lpstrFile);
+		CopyFile(imagePath.c_str(), L"./tempImage", FALSE);
+		textImageNN->setImage("tempImage");
+		
+		drawMatOnControl(textImageNN->getImage(), IMAGE_BOX);
+	}
+}
+
+
+void CNNORGUIDlg::OnClose()
+{
+	// TODO: Add your message handler code here and/or call default
+	textImageNN->destroy();
+	CDialogEx::OnClose();
+}

@@ -3,6 +3,7 @@
 //
 
 #pragma once
+#include <opencv2/core/base.hpp>
 
 
 // CNNORGUIDlg dialog
@@ -10,6 +11,7 @@ class CNNORGUIDlg : public CDialogEx
 {
 // Construction
 public:
+	void drawMatOnControl(cv::Mat cvImg, UINT ID);
 	CNNORGUIDlg(CWnd* pParent = NULL);	// standard constructor
 
 // Dialog Data
@@ -31,4 +33,8 @@ protected:
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
+public:
+//	afx_msg void OnCbnSelchangeType();
+	afx_msg void OnBnClickedFile();
+	afx_msg void OnClose();
 };

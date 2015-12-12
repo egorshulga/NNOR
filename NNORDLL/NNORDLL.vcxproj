@@ -147,7 +147,6 @@
     <ClInclude Include="ImageProcessor\ImageProcessor.h" />
     <ClInclude Include="ImageProcessor\ImageSegmenter.h" />
     <ClInclude Include="ImageProcessor\preprocess\imagePreprocess.h" />
-    <ClInclude Include="ITextImageNN.h" />
     <ClInclude Include="NN\NeuralNetwork\DataEntry.h" />
     <ClInclude Include="NN\NeuralNetwork\DataReader.h" />
     <ClInclude Include="NN\NeuralNetwork\NeuralNetwork.h" />

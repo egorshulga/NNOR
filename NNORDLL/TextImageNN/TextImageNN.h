@@ -29,6 +29,7 @@ namespace nnor
 
 		void setImage(string imagePath) override;
 		Mat getImage() override;
+//		HBITMAP getBitmap() override;
 		void setROI(Rect roi) override;
 		void setRotationAngle(double angle) override;
 		void performAutomaticRotation() override;
